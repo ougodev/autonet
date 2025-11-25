@@ -75,6 +75,26 @@
   --radius-xl: 24px;
 }
 
+/* ============================================
+   LIGHT THEME VARIABLES
+   ============================================ */
+[data-theme="light"],
+.light-theme {
+  --navy: #f8fafc;
+  --navy-light: #f1f5f9;
+  --navy-lighter: #e2e8f0;
+  
+  --lightest-slate: #1e293b;
+  --light-slate: #334155;
+  --slate: #475569;
+  --dark-slate: #64748b;
+  
+  --green: #059669;
+  --green-tint: #10b981;
+  --cyan: #0891b2;
+  --orange: #ea580c;
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -91,6 +111,26 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* Light theme body styles */
+body.light-theme {
+  background: #f8fafc;
+  color: #1e293b;
+}
+
+body.light-theme::before {
+  background: 
+    radial-gradient(ellipse at 20% 20%, rgba(37, 99, 235, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, rgba(16, 185, 129, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(139, 92, 246, 0.05) 0%, transparent 70%);
+}
+
+body.light-theme::after {
+  background-image: 
+    linear-gradient(rgba(37, 99, 235, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(37, 99, 235, 0.03) 1px, transparent 1px);
 }
 
 /* Background Pattern */
@@ -107,6 +147,7 @@ body::before {
     radial-gradient(ellipse at 50% 50%, rgba(139, 92, 246, 0.05) 0%, transparent 70%);
   pointer-events: none;
   z-index: -1;
+  transition: background 0.3s ease;
 }
 
 /* Grid Pattern Overlay */

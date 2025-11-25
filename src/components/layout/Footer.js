@@ -1,9 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useLanguage } from '../../context/LanguageContext';
 import './Footer.css';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const { t } = useLanguage();
 
   return (
     <footer className="footer">
@@ -15,14 +17,13 @@ const Footer = () => {
               <span>AutoNet Architecture</span>
             </div>
             <p className="footer__description">
-              AutoNet Architecture - Votre référence pour comprendre et maîtriser 
-              les protocoles de communication automobile modernes.
+              {t('footer.description')}
             </p>
           </div>
 
           <div className="footer__links">
             <div className="footer__section">
-              <h4>Protocoles</h4>
+              <h4>{t('footer.protocols')}</h4>
               <ul>
                 <li><Link to="/protocol/can">CAN</Link></li>
                 <li><Link to="/protocol/canfd">CAN FD</Link></li>
@@ -34,16 +35,16 @@ const Footer = () => {
             </div>
 
             <div className="footer__section">
-              <h4>Ressources</h4>
+              <h4>{t('footer.resources')}</h4>
               <ul>
-                <li><Link to="/comparison">Comparaison</Link></li>
-                <li><Link to="/simulation">Simulation</Link></li>
-                <li><Link to="/digital-twin">Digital Twin</Link></li>
+                <li><Link to="/comparison">{t('nav.comparison')}</Link></li>
+                <li><Link to="/simulation">{t('nav.simulation')}</Link></li>
+                <li><Link to="/digital-twin">{t('nav.digitalTwin')}</Link></li>
               </ul>
             </div>
 
             <div className="footer__section">
-              <h4>Développeur</h4>
+              <h4>{t('footer.developer')}</h4>
               <div className="developer-info">
                 <div className="developer-profile">
                   <img src={require('../../img/ougo.png')} alt="Oussama Gobji" className="developer-photo" />
@@ -69,9 +70,9 @@ const Footer = () => {
         </div>
 
         <div className="footer__bottom">
-          <p>&copy; {currentYear} AutoNet Architecture. Tous droits réservés.</p>
+          <p>&copy; {currentYear} {t('footer.copyright')}</p>
           <p className="footer__credits">
-            Plateforme complète pour l'exploration des réseaux de communication automobile.
+            {t('footer.platform')}
           </p>
         </div>
       </div>

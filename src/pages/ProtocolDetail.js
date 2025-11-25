@@ -3,10 +3,12 @@ import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { protocols } from '../data/protocolsData';
 import FrameVisualizer from '../components/visualizers/FrameVisualizer';
+import { useLanguage } from '../context/LanguageContext';
 import './ProtocolDetail.css';
 
 const ProtocolDetail = () => {
   const { protocolId } = useParams();
+  const { t } = useLanguage();
   
   // Find the protocol by id
   const protocol = Object.values(protocols).find(p => p.id === protocolId);
@@ -16,9 +18,9 @@ const ProtocolDetail = () => {
       <div className="protocol-detail">
         <div className="container">
           <div className="error-state">
-            <h3>Protocole non trouvé</h3>
-            <p>Le protocole demandé n'existe pas.</p>
-            <Link to="/" className="btn btn-primary">Retour à l'accueil</Link>
+            <h3>{t('protocolDetail.notFound')}</h3>
+            <p>{t('protocolDetail.notFoundDesc')}</p>
+            <Link to="/" className="btn btn-primary">{t('protocolDetail.backHome')}</Link>
           </div>
         </div>
       </div>
@@ -47,7 +49,7 @@ const ProtocolDetail = () => {
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M19 12H5M12 19l-7-7 7-7"/>
               </svg>
-              Retour aux protocoles
+              {t('protocolDetail.backToProtocols')}
             </Link>
 
             <div className="protocol-hero__header">
@@ -71,15 +73,15 @@ const ProtocolDetail = () => {
 
             <div className="protocol-hero__meta">
               <div className="meta-item">
-                <span className="meta-label">Année</span>
+                <span className="meta-label">{t('protocolDetail.year')}</span>
                 <span className="meta-value">{protocol.year}</span>
               </div>
               <div className="meta-item">
-                <span className="meta-label">Standard</span>
+                <span className="meta-label">{t('protocolDetail.standard')}</span>
                 <span className="meta-value">{protocol.standard}</span>
               </div>
               <div className="meta-item">
-                <span className="meta-label">Inventeur</span>
+                <span className="meta-label">{t('protocolDetail.inventor')}</span>
                 <span className="meta-value">{protocol.inventor}</span>
               </div>
             </div>
@@ -95,7 +97,7 @@ const ProtocolDetail = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <h2 className="section-title">Caractéristiques Techniques</h2>
+            <h2 className="section-title">{t('protocolDetail.technicalCharacteristics')}</h2>
             
             <div className="characteristics-grid">
               <div className="char-card">
@@ -105,7 +107,7 @@ const ProtocolDetail = () => {
                   </svg>
                 </div>
                 <div className="char-content">
-                  <span className="char-label">Débit Maximum</span>
+                  <span className="char-label">{t('protocolDetail.maxBitrate')}</span>
                   <span className="char-value">{protocol.characteristics.maxBitrate}</span>
                 </div>
               </div>
@@ -119,7 +121,7 @@ const ProtocolDetail = () => {
                   </svg>
                 </div>
                 <div className="char-content">
-                  <span className="char-label">Taille Payload</span>
+                  <span className="char-label">{t('protocolDetail.payloadSize')}</span>
                   <span className="char-value">{protocol.characteristics.maxPayload}</span>
                 </div>
               </div>
@@ -133,7 +135,7 @@ const ProtocolDetail = () => {
                   </svg>
                 </div>
                 <div className="char-content">
-                  <span className="char-label">Topologie</span>
+                  <span className="char-label">{t('protocolDetail.topology')}</span>
                   <span className="char-value">{protocol.characteristics.topology}</span>
                 </div>
               </div>
@@ -146,7 +148,7 @@ const ProtocolDetail = () => {
                   </svg>
                 </div>
                 <div className="char-content">
-                  <span className="char-label">Support Physique</span>
+                  <span className="char-label">{t('protocolDetail.physicalMedium')}</span>
                   <span className="char-value">{protocol.characteristics.medium}</span>
                 </div>
               </div>
@@ -161,7 +163,7 @@ const ProtocolDetail = () => {
                   </svg>
                 </div>
                 <div className="char-content">
-                  <span className="char-label">Nombre de Noeuds</span>
+                  <span className="char-label">{t('protocolDetail.nodeCount')}</span>
                   <span className="char-value">{protocol.characteristics.maxNodes || 'Variable'}</span>
                 </div>
               </div>
@@ -174,10 +176,10 @@ const ProtocolDetail = () => {
                   </svg>
                 </div>
                 <div className="char-content">
-                  <span className="char-label">Déterminisme</span>
+                  <span className="char-label">{t('protocolDetail.determinism')}</span>
                   <span className="char-value">
-                    {protocol.characteristics.deterministic === true ? 'Oui' : 
-                     protocol.characteristics.deterministic === false ? 'Non' : 
+                    {protocol.characteristics.deterministic === true ? t('common.yes') : 
+                     protocol.characteristics.deterministic === false ? t('common.no') : 
                      protocol.characteristics.deterministic}
                   </span>
                 </div>
@@ -196,7 +198,7 @@ const ProtocolDetail = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              <h2 className="section-title">Structure de la Trame</h2>
+              <h2 className="section-title">{t('protocolDetail.frameStructure')}</h2>
               <FrameVisualizer protocol={protocol} />
             </motion.div>
           </div>
@@ -212,7 +214,7 @@ const ProtocolDetail = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              <h2 className="section-title">Mécanisme d'Arbitrage</h2>
+              <h2 className="section-title">{t('protocolDetail.arbitrationMechanism')}</h2>
               
               <div className="arbitration-card">
                 <div className="arbitration-header">
@@ -221,7 +223,7 @@ const ProtocolDetail = () => {
                 </div>
 
                 <div className="arbitration-rules">
-                  <h4>Règles d'Arbitrage</h4>
+                  <h4>{t('protocolDetail.arbitrationRules')}</h4>
                   <ul>
                     {protocol.arbitration.rules.map((rule, index) => (
                       <li key={index}>
@@ -234,7 +236,7 @@ const ProtocolDetail = () => {
 
                 {protocol.arbitration.example && (
                   <div className="arbitration-example">
-                    <h4>Exemple d'Arbitrage</h4>
+                    <h4>{t('protocolDetail.arbitrationExample')}</h4>
                     <div className="example-nodes">
                       {Object.entries(protocol.arbitration.example)
                         .filter(([key]) => key.startsWith('node'))
@@ -243,11 +245,11 @@ const ProtocolDetail = () => {
                             key={key} 
                             className={`example-node ${node.wins ? 'winner' : 'loser'}`}
                           >
-                            <span className="node-name">{key.replace('node', 'Noeud ')}</span>
+                            <span className="node-name">{t('protocolDetail.node')} {key.replace('node', '')}</span>
                             <span className="node-id">ID: {node.id}</span>
                             <span className="node-binary">{node.binary}</span>
                             <span className={`node-status ${node.wins ? 'wins' : 'loses'}`}>
-                              {node.wins ? 'GAGNE' : 'PERD'}
+                              {node.wins ? t('protocolDetail.wins') : t('protocolDetail.loses')}
                             </span>
                           </div>
                         ))}
@@ -272,16 +274,16 @@ const ProtocolDetail = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              <h2 className="section-title">Couche Physique</h2>
+              <h2 className="section-title">{t('protocolDetail.physicalLayer')}</h2>
               
               <div className="physical-layer-card">
                 <p className="physical-description">{protocol.physicalLayer.description}</p>
                 
                 <div className="voltage-diagram">
-                  <h4>Niveaux de Tension</h4>
+                  <h4>{t('protocolDetail.voltageLevels')}</h4>
                   <div className="voltage-levels">
                     <div className="voltage-state recessive">
-                      <span className="state-name">Récessif (1)</span>
+                      <span className="state-name">{t('protocolDetail.recessive')} (1)</span>
                       <div className="voltage-values">
                         <span>CAN_H: {protocol.physicalLayer.voltages.recessive.canH}V</span>
                         <span>CAN_L: {protocol.physicalLayer.voltages.recessive.canL}V</span>
@@ -289,7 +291,7 @@ const ProtocolDetail = () => {
                       </div>
                     </div>
                     <div className="voltage-state dominant">
-                      <span className="state-name">Dominant (0)</span>
+                      <span className="state-name">{t('protocolDetail.dominant')} (0)</span>
                       <div className="voltage-values">
                         <span>CAN_H: {protocol.physicalLayer.voltages.dominant.canH}V</span>
                         <span>CAN_L: {protocol.physicalLayer.voltages.dominant.canL}V</span>
@@ -300,7 +302,7 @@ const ProtocolDetail = () => {
                 </div>
 
                 <div className="termination-info">
-                  <h4>Terminaison</h4>
+                  <h4>{t('protocolDetail.termination')}</h4>
                   <p>{protocol.physicalLayer.termination}</p>
                 </div>
               </div>
@@ -318,7 +320,7 @@ const ProtocolDetail = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              <h2 className="section-title">Gestion des Erreurs</h2>
+              <h2 className="section-title">{t('protocolDetail.errorHandling')}</h2>
               
               <div className="error-mechanisms">
                 {protocol.errorHandling.mechanisms.map((mechanism, index) => (
@@ -339,7 +341,7 @@ const ProtocolDetail = () => {
 
               {protocol.errorHandling.errorCounters && (
                 <div className="error-counters">
-                  <h4>Compteurs d'Erreurs</h4>
+                  <h4>{t('protocolDetail.errorCounters')}</h4>
                   <div className="counters-grid">
                     <div className="counter">
                       <span className="counter-abbr">TEC</span>
@@ -351,7 +353,7 @@ const ProtocolDetail = () => {
                     </div>
                   </div>
                   <div className="error-states">
-                    <h5>États d'Erreur</h5>
+                    <h5>{t('protocolDetail.errorStates')}</h5>
                     <div className="states-list">
                       {protocol.errorHandling.errorCounters.states.map((state, index) => (
                         <span key={index} className="error-state-badge">{state}</span>
@@ -373,7 +375,7 @@ const ProtocolDetail = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <h2 className="section-title">Applications</h2>
+            <h2 className="section-title">{t('protocolDetail.applications')}</h2>
             
             <div className="applications-grid">
               {protocol.applications.map((app, index) => (
@@ -410,7 +412,7 @@ const ProtocolDetail = () => {
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <polyline points="20 6 9 17 4 12"/>
                   </svg>
-                  Avantages
+                  {t('protocolDetail.advantages')}
                 </h3>
                 <ul>
                   {protocol.advantages.map((adv, index) => (
@@ -425,7 +427,7 @@ const ProtocolDetail = () => {
                     <line x1="18" y1="6" x2="6" y2="18"/>
                     <line x1="6" y1="6" x2="18" y2="18"/>
                   </svg>
-                  Inconvénients
+                  {t('protocolDetail.disadvantages')}
                 </h3>
                 <ul>
                   {protocol.disadvantages.map((dis, index) => (
@@ -441,7 +443,7 @@ const ProtocolDetail = () => {
       {/* Navigation to other protocols */}
       <section className="section nav-section">
         <div className="container">
-          <h3>Explorer d'autres protocoles</h3>
+          <h3>{t('protocolDetail.exploreOther')}</h3>
           <div className="protocol-nav-grid">
             {Object.values(protocols)
               .filter(p => p.id !== protocol.id)

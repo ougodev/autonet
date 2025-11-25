@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useLanguage } from '../context/LanguageContext';
 import './Simulation.css';
 
 // SVG Icons - Inline pour éviter les imports
@@ -1085,6 +1086,7 @@ const EthernetSimulator = () => {
 
 // ==================== MAIN SIMULATION PAGE ====================
 const Simulation = () => {
+  const { t } = useLanguage();
   const [activeSimulator, setActiveSimulator] = useState('can');
   
   const simulators = [
@@ -1105,9 +1107,9 @@ const Simulation = () => {
           <svg viewBox="0 0 24 24" fill="currentColor" style={{ width: '2.5rem', height: '2.5rem', display: 'inline-block', marginRight: '1rem' }}>
             <path d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
           </svg>
-          Interactive Protocol Simulations
+          {t('simulation.title')}
         </h1>
-        <p>Experience automotive communication protocols in action</p>
+        <p>{t('simulation.subtitle')}</p>
       </motion.div>
 
       <div className="simulator-tabs">

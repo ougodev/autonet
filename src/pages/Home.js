@@ -2,10 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { protocols } from '../data/protocolsData';
+import { useLanguage } from '../context/LanguageContext';
 import ProtocolCard from '../components/common/ProtocolCard';
 import './Home.css';
 
 const Home = () => {
+  const { t } = useLanguage();
   const protocolList = Object.values(protocols);
 
   const containerVariants = {
@@ -42,37 +44,35 @@ const Home = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <span className="hero__badge">Créé par OUGO</span>
+          <span className="hero__badge">{t('home.hero.badge')}</span>
           <h1 className="hero__title">
-            Protocoles de Communication
-            <span className="text-gradient"> Automobile</span>
+            {t('home.hero.title')}
+            <span className="text-gradient"> {t('home.hero.titleHighlight')}</span>
           </h1>
           <p className="hero__subtitle">
-            Explorez en profondeur les protocoles qui permettent aux véhicules modernes 
-            de fonctionner : CAN, CAN FD, LIN, FlexRay, MOST et Ethernet automobile. 
-            Comprenez leur architecture, leurs trames et leur fonctionnement temps réel.
+            {t('home.hero.subtitle')}
           </p>
           <div className="hero__actions">
             <Link to="/comparison" className="btn btn-primary">
-              Comparer les Protocoles
+              {t('home.hero.compareBtn')}
             </Link>
             <Link to="/simulation" className="btn btn-outline">
-              Voir les Simulations
+              {t('home.hero.simulateBtn')}
             </Link>
           </div>
 
           <div className="hero__stats">
             <div className="stat">
               <span className="stat__value">6</span>
-              <span className="stat__label">Protocoles</span>
+              <span className="stat__label">{t('home.hero.stats.protocols')}</span>
             </div>
             <div className="stat">
               <span className="stat__value">100+</span>
-              <span className="stat__label">ECUs par véhicule</span>
+              <span className="stat__label">{t('home.hero.stats.ecus')}</span>
             </div>
             <div className="stat">
               <span className="stat__value">10 Gbit/s</span>
-              <span className="stat__label">Débit max Ethernet</span>
+              <span className="stat__label">{t('home.hero.stats.maxSpeed')}</span>
             </div>
           </div>
         </motion.div>
@@ -88,11 +88,8 @@ const Home = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2>Les Protocoles Automobiles</h2>
-            <p>
-              Découvrez les six protocoles majeurs utilisés dans les réseaux embarqués 
-              des véhicules modernes. Chacun répond à des besoins spécifiques.
-            </p>
+            <h2>{t('home.protocols.title')}</h2>
+            <p>{t('home.protocols.subtitle')}</p>
           </motion.div>
 
           <motion.div 
@@ -120,11 +117,8 @@ const Home = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <h2>Architecture Réseau Véhicule</h2>
-            <p>
-              Un véhicule moderne contient plusieurs domaines fonctionnels, 
-              chacun utilisant le protocole le plus adapté à ses besoins.
-            </p>
+            <h2>{t('home.architecture.title')}</h2>
+            <p>{t('home.architecture.subtitle')}</p>
           </motion.div>
 
           <motion.div 
@@ -136,69 +130,69 @@ const Home = () => {
           >
             <div className="architecture-central">
               <div className="gateway-box">
-                <span className="gateway-label">Gateway Central</span>
-                <span className="gateway-sub">Routage inter-protocoles</span>
+                <span className="gateway-label">{t('home.architecture.gateway')}</span>
+                <span className="gateway-sub">{t('home.architecture.gatewayDesc')}</span>
               </div>
             </div>
 
             <div className="architecture-domains">
               <div className="domain domain--powertrain">
                 <div className="domain__header" style={{ backgroundColor: 'rgba(255, 107, 53, 0.2)', borderColor: '#ff6b35' }}>
-                  <h4>Powertrain</h4>
+                  <h4>{t('home.architecture.domains.powertrain.title')}</h4>
                   <span className="domain__protocol">CAN / CAN FD</span>
                 </div>
                 <ul className="domain__ecus">
-                  <li>ECU Moteur</li>
-                  <li>Transmission</li>
-                  <li>Gestion Batterie</li>
+                  <li>{t('home.architecture.domains.powertrain.ecu1')}</li>
+                  <li>{t('home.architecture.domains.powertrain.ecu2')}</li>
+                  <li>{t('home.architecture.domains.powertrain.ecu3')}</li>
                 </ul>
               </div>
 
               <div className="domain domain--chassis">
                 <div className="domain__header" style={{ backgroundColor: 'rgba(157, 78, 221, 0.2)', borderColor: '#9d4edd' }}>
-                  <h4>Chassis / Safety</h4>
+                  <h4>{t('home.architecture.domains.chassis.title')}</h4>
                   <span className="domain__protocol">FlexRay</span>
                 </div>
                 <ul className="domain__ecus">
-                  <li>Direction EPS</li>
-                  <li>ABS / ESP</li>
-                  <li>Suspension Active</li>
+                  <li>{t('home.architecture.domains.chassis.ecu1')}</li>
+                  <li>{t('home.architecture.domains.chassis.ecu2')}</li>
+                  <li>{t('home.architecture.domains.chassis.ecu3')}</li>
                 </ul>
               </div>
 
               <div className="domain domain--body">
                 <div className="domain__header" style={{ backgroundColor: 'rgba(6, 214, 160, 0.2)', borderColor: '#06d6a0' }}>
-                  <h4>Body / Confort</h4>
+                  <h4>{t('home.architecture.domains.body.title')}</h4>
                   <span className="domain__protocol">LIN</span>
                 </div>
                 <ul className="domain__ecus">
-                  <li>Vitres / Rétros</li>
-                  <li>Sièges</li>
-                  <li>Climatisation</li>
+                  <li>{t('home.architecture.domains.body.ecu1')}</li>
+                  <li>{t('home.architecture.domains.body.ecu2')}</li>
+                  <li>{t('home.architecture.domains.body.ecu3')}</li>
                 </ul>
               </div>
 
               <div className="domain domain--infotainment">
                 <div className="domain__header" style={{ backgroundColor: 'rgba(0, 212, 255, 0.2)', borderColor: '#00d4ff' }}>
-                  <h4>Infotainment</h4>
+                  <h4>{t('home.architecture.domains.infotainment.title')}</h4>
                   <span className="domain__protocol">MOST / Ethernet</span>
                 </div>
                 <ul className="domain__ecus">
-                  <li>Head Unit</li>
-                  <li>Amplificateur</li>
-                  <li>Écrans</li>
+                  <li>{t('home.architecture.domains.infotainment.ecu1')}</li>
+                  <li>{t('home.architecture.domains.infotainment.ecu2')}</li>
+                  <li>{t('home.architecture.domains.infotainment.ecu3')}</li>
                 </ul>
               </div>
 
               <div className="domain domain--adas">
                 <div className="domain__header" style={{ backgroundColor: 'rgba(100, 255, 218, 0.2)', borderColor: '#64ffda' }}>
-                  <h4>ADAS</h4>
+                  <h4>{t('home.architecture.domains.adas.title')}</h4>
                   <span className="domain__protocol">Ethernet 1Gbit/s</span>
                 </div>
                 <ul className="domain__ecus">
-                  <li>Caméras</li>
-                  <li>Radar / LiDAR</li>
-                  <li>Fusion Capteurs</li>
+                  <li>{t('home.architecture.domains.adas.ecu1')}</li>
+                  <li>{t('home.architecture.domains.adas.ecu2')}</li>
+                  <li>{t('home.architecture.domains.adas.ecu3')}</li>
                 </ul>
               </div>
             </div>
@@ -215,11 +209,8 @@ const Home = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <h2>Fonctionnalités Interactives</h2>
-            <p>
-              Des outils pédagogiques pour comprendre en profondeur 
-              le fonctionnement des réseaux automobiles.
-            </p>
+            <h2>{t('home.features.title')}</h2>
+            <p>{t('home.features.subtitle')}</p>
           </motion.div>
 
           <div className="features-grid">
@@ -235,13 +226,10 @@ const Home = () => {
                   <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
                 </svg>
               </div>
-              <h3>Comparaison Détaillée</h3>
-              <p>
-                Comparez les protocoles selon de nombreux critères : débit, payload, 
-                topologie, déterminisme, coût et cas d'utilisation.
-              </p>
+              <h3>{t('home.features.comparison.title')}</h3>
+              <p>{t('home.features.comparison.desc')}</p>
               <Link to="/comparison" className="feature-link">
-                Explorer la comparaison
+                {t('home.features.comparison.link')}
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M5 12h14M12 5l7 7-7 7"/>
                 </svg>
@@ -260,13 +248,10 @@ const Home = () => {
                   <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
                 </svg>
               </div>
-              <h3>Simulation Temps Réel</h3>
-              <p>
-                Visualisez l'arbitrage CAN, la transmission de trames, 
-                le scheduling LIN et les cycles FlexRay en temps réel.
-              </p>
+              <h3>{t('home.features.simulation.title')}</h3>
+              <p>{t('home.features.simulation.desc')}</p>
               <Link to="/simulation" className="feature-link">
-                Lancer les simulations
+                {t('home.features.simulation.link')}
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M5 12h14M12 5l7 7-7 7"/>
                 </svg>
@@ -287,13 +272,10 @@ const Home = () => {
                   <line x1="12" y1="17" x2="12" y2="21"/>
                 </svg>
               </div>
-              <h3>Digital Twin</h3>
-              <p>
-                Explorez un jumeau numérique d'un réseau véhicule complet 
-                avec tous ses domaines et protocoles interconnectés.
-              </p>
+              <h3>{t('home.features.digitalTwin.title')}</h3>
+              <p>{t('home.features.digitalTwin.desc')}</p>
               <Link to="/digital-twin" className="feature-link">
-                Voir le Digital Twin
+                {t('home.features.digitalTwin.link')}
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M5 12h14M12 5l7 7-7 7"/>
                 </svg>
@@ -312,11 +294,8 @@ const Home = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <h2>Évolution des Protocoles</h2>
-            <p>
-              L'histoire des protocoles de communication automobile, 
-              des années 1980 à aujourd'hui.
-            </p>
+            <h2>{t('home.timeline.title')}</h2>
+            <p>{t('home.timeline.subtitle')}</p>
           </motion.div>
 
           <div className="timeline">
@@ -330,7 +309,7 @@ const Home = () => {
               <div className="timeline-content">
                 <span className="timeline-year">1986</span>
                 <h4>CAN - Controller Area Network</h4>
-                <p>Bosch développe le CAN pour réduire le câblage complexe dans les véhicules. Premier standard de communication automobile.</p>
+                <p>{t('home.timeline.can')}</p>
               </div>
             </motion.div>
 
@@ -344,7 +323,7 @@ const Home = () => {
               <div className="timeline-content">
                 <span className="timeline-year">1999</span>
                 <h4>LIN - Local Interconnect Network</h4>
-                <p>Consortium BMW, VW, Audi crée le LIN comme solution low-cost pour les capteurs et actionneurs simples.</p>
+                <p>{t('home.timeline.lin')}</p>
               </div>
             </motion.div>
 
@@ -358,7 +337,7 @@ const Home = () => {
               <div className="timeline-content">
                 <span className="timeline-year">2001</span>
                 <h4>MOST - Media Oriented Systems Transport</h4>
-                <p>MOST25 introduit pour le streaming audio/vidéo haute qualité via fibre optique dans les véhicules premium.</p>
+                <p>{t('home.timeline.most')}</p>
               </div>
             </motion.div>
 
@@ -372,7 +351,7 @@ const Home = () => {
               <div className="timeline-content">
                 <span className="timeline-year">2005</span>
                 <h4>FlexRay</h4>
-                <p>Premier protocole déterministe pour les applications safety-critical comme le brake-by-wire et steer-by-wire.</p>
+                <p>{t('home.timeline.flexray')}</p>
               </div>
             </motion.div>
 
@@ -386,7 +365,7 @@ const Home = () => {
               <div className="timeline-content">
                 <span className="timeline-year">2012</span>
                 <h4>CAN FD - Flexible Data-rate</h4>
-                <p>Bosch étend le CAN avec des payloads jusqu'à 64 octets et des débits jusqu'à 8 Mbit/s pour l'ADAS.</p>
+                <p>{t('home.timeline.canfd')}</p>
               </div>
             </motion.div>
 
@@ -400,7 +379,7 @@ const Home = () => {
               <div className="timeline-content">
                 <span className="timeline-year">2015</span>
                 <h4>Automotive Ethernet</h4>
-                <p>100BASE-T1 standardisé. Début de la convergence vers l'Ethernet pour unifier tous les domaines véhicule.</p>
+                <p>{t('home.timeline.ethernet')}</p>
               </div>
             </motion.div>
           </div>
@@ -416,17 +395,14 @@ const Home = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <h2>Prêt à Explorer ?</h2>
-            <p>
-              Commencez votre apprentissage des protocoles de communication automobile 
-              avec nos simulations interactives et notre digital twin.
-            </p>
+            <h2>{t('home.cta.title')}</h2>
+            <p>{t('home.cta.subtitle')}</p>
             <div className="cta-actions">
               <Link to="/simulation" className="btn btn-primary">
-                Commencer les Simulations
+                {t('home.cta.simulateBtn')}
               </Link>
               <Link to="/digital-twin" className="btn btn-outline">
-                Explorer le Digital Twin
+                {t('home.cta.twinBtn')}
               </Link>
             </div>
           </motion.div>

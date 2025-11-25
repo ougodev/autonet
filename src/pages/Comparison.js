@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { protocols, comparisonData } from '../data/protocolsData';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis } from 'recharts';
+import { useLanguage } from '../context/LanguageContext';
 import './Comparison.css';
 
 const Comparison = () => {
+  const { t } = useLanguage();
   const [selectedProtocols, setSelectedProtocols] = useState(['CAN', 'CANFD', 'LIN', 'FlexRay', 'MOST', 'Ethernet']);
   const [activeTab, setActiveTab] = useState('table');
 
@@ -80,10 +82,9 @@ const Comparison = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <h1>Comparaison des Protocoles</h1>
+            <h1>{t('comparison.title')}</h1>
             <p className="comparison-intro">
-              Analysez et comparez les caractéristiques techniques des protocoles 
-              de communication automobile selon différents critères.
+              {t('comparison.subtitle')}
             </p>
           </motion.div>
         </div>
@@ -92,7 +93,7 @@ const Comparison = () => {
       {/* Protocol Selector */}
       <section className="protocol-selector section">
         <div className="container">
-          <h3>Sélectionnez les protocoles à comparer</h3>
+          <h3>{t('comparison.selectProtocols')}</h3>
           <div className="protocol-toggles">
             {protocolList.map(protocol => (
               <button
@@ -123,19 +124,19 @@ const Comparison = () => {
               className={`tab-btn ${activeTab === 'table' ? 'active' : ''}`}
               onClick={() => setActiveTab('table')}
             >
-              Tableau Comparatif
+              {t('comparison.tabs.table')}
             </button>
             <button 
               className={`tab-btn ${activeTab === 'charts' ? 'active' : ''}`}
               onClick={() => setActiveTab('charts')}
             >
-              Graphiques
+              {t('comparison.tabs.charts')}
             </button>
             <button 
               className={`tab-btn ${activeTab === 'usecases' ? 'active' : ''}`}
               onClick={() => setActiveTab('usecases')}
             >
-              Cas d'Utilisation
+              {t('comparison.tabs.usecases')}
             </button>
           </div>
 
@@ -151,7 +152,7 @@ const Comparison = () => {
                 <table className="comparison-table">
                   <thead>
                     <tr>
-                      <th>Critère</th>
+                      <th>{t('comparison.criteria')}</th>
                       {selectedProtocols.map(pName => {
                         const protocol = protocolList.find(p => 
                           p.name === pName || (p.name === 'CAN FD' && pName === 'CANFD')
@@ -200,7 +201,7 @@ const Comparison = () => {
             >
               {/* Bitrate Chart */}
               <div className="chart-card">
-                <h3>Débit Maximum (échelle logarithmique)</h3>
+                <h3>{t('comparison.charts.bitrate')}</h3>
                 <div className="chart-wrapper">
                   <ResponsiveContainer width="100%" height={300}>
                     <BarChart data={getChartData('bitrate')} layout="vertical">
@@ -237,7 +238,7 @@ const Comparison = () => {
 
               {/* Payload Chart */}
               <div className="chart-card">
-                <h3>Taille Payload Maximum (octets)</h3>
+                <h3>{t('comparison.charts.payload')}</h3>
                 <div className="chart-wrapper">
                   <ResponsiveContainer width="100%" height={300}>
                     <BarChart data={getChartData('payload')}>
@@ -263,7 +264,7 @@ const Comparison = () => {
 
               {/* Radar Chart */}
               <div className="chart-card chart-card--wide">
-                <h3>Comparaison Multi-Critères</h3>
+                <h3>{t('comparison.charts.multiCriteria')}</h3>
                 <div className="chart-wrapper">
                   <ResponsiveContainer width="100%" height={400}>
                     <RadarChart data={getRadarData()}>
@@ -344,7 +345,7 @@ const Comparison = () => {
                   
                   <div className="usecase-content">
                     <div className="recommended-protocols">
-                      <h4>Protocoles Recommandés</h4>
+                      <h4>{t('comparison.usecases.recommended')}</h4>
                       <div className="protocol-badges">
                         {useCase.recommended.map(pName => {
                           const protocol = protocolList.find(p => 
@@ -368,7 +369,7 @@ const Comparison = () => {
                     </div>
                     
                     <div className="usecase-examples">
-                      <h4>Exemples d'Applications</h4>
+                      <h4>{t('comparison.usecases.examples')}</h4>
                       <ul>
                         {useCase.examples.map((example, idx) => (
                           <li key={idx}>{example}</li>
@@ -386,7 +387,7 @@ const Comparison = () => {
       {/* Summary Cards */}
       <section className="summary-section section">
         <div className="container">
-          <h2>Résumé des Forces</h2>
+          <h2>{t('comparison.summary.title')}</h2>
           <div className="summary-grid">
             <div className="summary-card">
               <div className="summary-icon" style={{ color: '#ff6b35' }}>
@@ -394,9 +395,9 @@ const Comparison = () => {
                   <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
                 </svg>
               </div>
-              <h3>Le Plus Fiable</h3>
-              <span className="summary-protocol">CAN / CAN FD</span>
-              <p>Excellente gestion des erreurs avec 5 mécanismes de détection</p>
+              <h3>{t('comparison.summary.reliable.title')}</h3>
+              <span className="summary-protocol">{t('comparison.summary.reliable.protocol')}</span>
+              <p>{t('comparison.summary.reliable.desc')}</p>
             </div>
 
             <div className="summary-card">
@@ -405,9 +406,9 @@ const Comparison = () => {
                   <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
                 </svg>
               </div>
-              <h3>Le Plus Rapide</h3>
-              <span className="summary-protocol">Automotive Ethernet</span>
-              <p>Jusqu'à 10 Gbit/s pour les applications haute performance</p>
+              <h3>{t('comparison.summary.fastest.title')}</h3>
+              <span className="summary-protocol">{t('comparison.summary.fastest.protocol')}</span>
+              <p>{t('comparison.summary.fastest.desc')}</p>
             </div>
 
             <div className="summary-card">
@@ -417,9 +418,9 @@ const Comparison = () => {
                   <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
                 </svg>
               </div>
-              <h3>Le Moins Cher</h3>
-              <span className="summary-protocol">LIN</span>
-              <p>Un seul fil, parfait pour les capteurs et actionneurs simples</p>
+              <h3>{t('comparison.summary.cheapest.title')}</h3>
+              <span className="summary-protocol">{t('comparison.summary.cheapest.protocol')}</span>
+              <p>{t('comparison.summary.cheapest.desc')}</p>
             </div>
 
             <div className="summary-card">
@@ -429,9 +430,9 @@ const Comparison = () => {
                   <polyline points="12 6 12 12 16 14"/>
                 </svg>
               </div>
-              <h3>Le Plus Déterministe</h3>
-              <span className="summary-protocol">FlexRay</span>
-              <p>TDMA garantit des temps de transmission prévisibles</p>
+              <h3>{t('comparison.summary.deterministic.title')}</h3>
+              <span className="summary-protocol">{t('comparison.summary.deterministic.protocol')}</span>
+              <p>{t('comparison.summary.deterministic.desc')}</p>
             </div>
 
             <div className="summary-card">
@@ -442,9 +443,9 @@ const Comparison = () => {
                   <circle cx="18" cy="16" r="3"/>
                 </svg>
               </div>
-              <h3>Meilleur pour le Multimédia</h3>
-              <span className="summary-protocol">MOST</span>
-              <p>Streaming synchrone optimisé pour l'audio/vidéo</p>
+              <h3>{t('comparison.summary.multimedia.title')}</h3>
+              <span className="summary-protocol">{t('comparison.summary.multimedia.protocol')}</span>
+              <p>{t('comparison.summary.multimedia.desc')}</p>
             </div>
 
             <div className="summary-card">
@@ -453,9 +454,9 @@ const Comparison = () => {
                   <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
                 </svg>
               </div>
-              <h3>Le Plus Polyvalent</h3>
-              <span className="summary-protocol">CAN FD</span>
-              <p>Combine compatibilité CAN et performances améliorées</p>
+              <h3>{t('comparison.summary.versatile.title')}</h3>
+              <span className="summary-protocol">{t('comparison.summary.versatile.protocol')}</span>
+              <p>{t('comparison.summary.versatile.desc')}</p>
             </div>
           </div>
         </div>

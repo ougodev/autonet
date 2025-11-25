@@ -1,13 +1,15 @@
 import React, { useState, useCallback, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useLanguage } from '../context/LanguageContext';
 import './DigitalTwin.css';
 import { 
   RadarIcon, UltrasonicIcon, CameraIcon, FuelIcon, TemperatureIcon, BatteryIcon,
   WarningIcon, CriticalAlertIcon, InfoIcon, CheckIcon, CarIcon, NetworkIcon,
-  DashboardIcon, BroadcastIcon, EnergyIcon, RefreshIcon, ShieldIcon, PlayIcon, StopIcon, ChartIcon
+  DashboardIcon, BroadcastIcon, EnergyIcon, RefreshIcon, ShieldIcon, StopIcon, ChartIcon
 } from '../components/common/Icons';
 
 const DigitalTwin = () => {
+  const { t } = useLanguage();
   const [activeNode, setActiveNode] = useState(null);
   const [activeMessages, setActiveMessages] = useState([]);
   const [viewMode, setViewMode] = useState('vehicle');
@@ -647,7 +649,7 @@ const DigitalTwin = () => {
   const AlertPanel = () => (
     <div className="alert-panel">
       <div className="alert-header">
-        <span><WarningIcon size={18} color="#f97316" /> Alertes Système</span>
+        <span><WarningIcon size={18} color="#f97316" /> {t('digitalTwin.alerts.title')}</span>
       </div>
       <div className="alert-list">
         <AnimatePresence>
@@ -668,7 +670,7 @@ const DigitalTwin = () => {
           ))}
         </AnimatePresence>
         {alerts.length === 0 && (
-          <div className="no-alerts"><CheckIcon size={16} /> Aucune alerte - Système nominal</div>
+          <div className="no-alerts"><CheckIcon size={16} /> {t('digitalTwin.alerts.noAlerts')}</div>
         )}
       </div>
     </div>
@@ -694,7 +696,7 @@ const DigitalTwin = () => {
               <span className="hero-badge">Live</span>
             </h1>
             <p className="hero-subtitle">
-              Jumeau numérique interactif d'un réseau automobile complet avec simulation temps réel
+              {t('digitalTwin.subtitle')}
             </p>
             
             <div className="hero-controls">
@@ -705,7 +707,7 @@ const DigitalTwin = () => {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  <span>▶</span> Démarrer Simulation
+                  <span>▶</span> {t('digitalTwin.controls.start')}
                 </motion.button>
               ) : (
                 <motion.button
@@ -714,7 +716,7 @@ const DigitalTwin = () => {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  <StopIcon size={14} /> Arrêter
+                  <StopIcon size={14} /> {t('digitalTwin.controls.stop')}
                 </motion.button>
               )}
             </div>
@@ -727,10 +729,10 @@ const DigitalTwin = () => {
         <div className="container">
           <div className="view-tabs">
             {[
-              { id: 'vehicle', name: 'Vue Véhicule', Icon: CarIcon },
-              { id: 'network', name: 'Topologie Réseau', Icon: NetworkIcon },
-              { id: 'dashboard', name: 'Tableau de Bord', Icon: DashboardIcon },
-              { id: 'dataflow', name: 'Flux de Données', Icon: BroadcastIcon }
+              { id: 'vehicle', name: t('digitalTwin.views.vehicle'), Icon: CarIcon },
+              { id: 'network', name: t('digitalTwin.views.network'), Icon: NetworkIcon },
+              { id: 'dashboard', name: t('digitalTwin.views.dashboard'), Icon: DashboardIcon },
+              { id: 'dataflow', name: t('digitalTwin.views.dataflow'), Icon: BroadcastIcon }
             ].map(tab => (
               <motion.button
                 key={tab.id}
@@ -799,22 +801,22 @@ const DigitalTwin = () => {
                     <div className="stat-card">
                       <span className="stat-icon"><BroadcastIcon size={24} color="#06b6d4" /></span>
                       <span className="stat-value">{(networkStats.totalBandwidth / 1000).toFixed(1)} KB</span>
-                      <span className="stat-label">Données Transmises</span>
+                      <span className="stat-label">{t('digitalTwin.stats.totalData')}</span>
                     </div>
                     <div className="stat-card">
                       <span className="stat-icon"><EnergyIcon size={24} color="#fbbf24" /></span>
                       <span className="stat-value">{networkStats.canMessages + networkStats.flexrayFrames + networkStats.ethernetPackets + networkStats.linFrames}</span>
-                      <span className="stat-label">Messages Totaux</span>
+                      <span className="stat-label">{t('digitalTwin.stats.totalMessages')}</span>
                     </div>
                     <div className="stat-card">
                       <span className="stat-icon"><RefreshIcon size={24} color="#22c55e" /></span>
-                      <span className="stat-value">{isSimulating ? 'ACTIF' : 'ARRÊTÉ'}</span>
-                      <span className="stat-label">État Réseau</span>
+                      <span className="stat-value">{isSimulating ? t('digitalTwin.stats.active') : t('digitalTwin.stats.stopped')}</span>
+                      <span className="stat-label">{t('digitalTwin.stats.networkStatus')}</span>
                     </div>
                     <div className="stat-card">
                       <span className="stat-icon"><ShieldIcon size={24} color="#ef4444" /></span>
                       <span className="stat-value">{alerts.filter(a => a.type === 'critical').length}</span>
-                      <span className="stat-label">Alertes Critiques</span>
+                      <span className="stat-label">{t('digitalTwin.stats.criticalAlerts')}</span>
                     </div>
                   </div>
                 </div>
@@ -832,7 +834,7 @@ const DigitalTwin = () => {
               >
                 <MessageLog />
                 <div className="protocol-breakdown">
-                  <h3><ChartIcon size={20} color="#a855f7" /> Répartition par Protocole</h3>
+                  <h3><ChartIcon size={20} color="#a855f7" /> {t('digitalTwin.network.breakdown')}</h3>
                   <div className="protocol-bars">
                     {[
                       { name: 'CAN FD', value: networkStats.canMessages, color: '#ef4444' },
