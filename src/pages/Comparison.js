@@ -6,11 +6,85 @@ import { useLanguage } from '../context/LanguageContext';
 import './Comparison.css';
 
 const Comparison = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [selectedProtocols, setSelectedProtocols] = useState(['CAN', 'CANFD', 'LIN', 'FlexRay', 'MOST', 'Ethernet']);
   const [activeTab, setActiveTab] = useState('table');
 
   const protocolList = Object.values(protocols);
+  
+  // Translate criteria values based on language
+  const translateCriteriaValue = (criteriaId, pName, value) => {
+    if (!value) return 'N/A';
+    
+    // For topology values
+    if (criteriaId === 'topology') {
+      const topologyMap = {
+        'Bus linéaire': t('comparisonData.values.linearBus'),
+        'Bus Maître-Esclave': t('comparisonData.values.masterSlaveBus'),
+        'Bus/Étoile/Hybride': t('comparisonData.values.busStarHybrid'),
+        'Anneau': t('comparisonData.values.ring'),
+        'Étoile (Switch)': t('comparisonData.values.starSwitch')
+      };
+      return topologyMap[value.display] || value.display;
+    }
+    
+    // For medium values
+    if (criteriaId === 'medium') {
+      const mediumMap = {
+        '2 fils différentiels': t('comparisonData.values.diffWires2'),
+        '1 fil + masse': t('comparisonData.values.wire1Ground'),
+        '2 à 4 fils': t('comparisonData.values.wires2to4'),
+        'Fibre optique/Coax': t('comparisonData.values.fiberCoax'),
+        '1 paire torsadée': t('comparisonData.values.twistedPair')
+      };
+      return mediumMap[value.display] || value.display;
+    }
+    
+    // For deterministic values
+    if (criteriaId === 'deterministic') {
+      const deterministicMap = {
+        'Non': language === 'en' ? 'No' : 'Non',
+        'Oui': language === 'en' ? 'Yes' : 'Oui',
+        'Oui (TDMA)': t('comparisonData.values.withTDMA'),
+        'Avec TSN': t('comparisonData.values.withTSN')
+      };
+      return deterministicMap[value.display] || value.display;
+    }
+    
+    // For redundancy values
+    if (criteriaId === 'redundancy') {
+      const redundancyMap = {
+        'Non': language === 'en' ? 'No' : 'Non',
+        'Oui (Double canal)': t('comparisonData.values.dualChannel'),
+        'Bypass anneau': t('comparisonData.values.ringBypass'),
+        'Possible (802.1CB)': t('comparisonData.values.possible802')
+      };
+      return redundancyMap[value.display] || value.display;
+    }
+    
+    // For cost values
+    if (criteriaId === 'cost') {
+      const costMap = {
+        'Très faible': t('comparisonData.values.veryLow'),
+        'Faible': t('comparisonData.values.low'),
+        'Faible-Moyen': t('comparisonData.values.lowMedium'),
+        'Moyen': t('comparisonData.values.medium'),
+        'Moyen (en baisse)': t('comparisonData.values.mediumDecreasing'),
+        'Élevé': t('comparisonData.values.high')
+      };
+      return costMap[value.display] || value.display;
+    }
+    
+    // For payload with "octets"
+    if (criteriaId === 'payload' && typeof value.display === 'string') {
+      if (value.display === 'Variable') {
+        return t('comparisonData.values.variable');
+      }
+      return value.display.replace('octets', t('comparisonData.values.bytes'));
+    }
+    
+    return value.display;
+  };
 
   const toggleProtocol = (protocolName) => {
     setSelectedProtocols(prev => {
@@ -37,13 +111,25 @@ const Comparison = () => {
     });
   };
 
+  // Get translated criteria name
+  const getCriteriaName = (criteriaId) => {
+    const key = `comparisonData.${criteriaId}.name`;
+    return t(key);
+  };
+  
+  // Get translated criteria description
+  const getCriteriaDesc = (criteriaId) => {
+    const key = `comparisonData.${criteriaId}.desc`;
+    return t(key);
+  };
+
   // Radar chart data
   const getRadarData = () => {
     const metrics = ['bitrate', 'payload', 'cost', 'deterministic'];
     
     return metrics.map(metricId => {
       const criteria = comparisonData.criteria.find(c => c.id === metricId);
-      const dataPoint = { metric: criteria?.name || metricId };
+      const dataPoint = { metric: getCriteriaName(metricId) };
       
       selectedProtocols.forEach(pName => {
         const value = criteria?.values[pName];
@@ -172,14 +258,14 @@ const Comparison = () => {
                     {comparisonData.criteria.map(criteria => (
                       <tr key={criteria.id}>
                         <td className="criteria-cell">
-                          <span className="criteria-name">{criteria.name}</span>
-                          <span className="criteria-desc">{criteria.description}</span>
+                          <span className="criteria-name">{getCriteriaName(criteria.id)}</span>
+                          <span className="criteria-desc">{getCriteriaDesc(criteria.id)}</span>
                         </td>
                         {selectedProtocols.map(pName => {
                           const value = criteria.values[pName];
                           return (
                             <td key={pName} className="value-cell">
-                              {value?.display || 'N/A'}
+                              {translateCriteriaValue(criteria.id, pName, value)}
                             </td>
                           );
                         })}
@@ -245,7 +331,7 @@ const Comparison = () => {
                       <XAxis dataKey="name" stroke="#8892b0" />
                       <YAxis stroke="#8892b0" />
                       <Tooltip 
-                        formatter={(value) => `${value} octets`}
+                        formatter={(value) => `${value} ${t('comparisonData.values.bytes')}`}
                         contentStyle={{ 
                           backgroundColor: '#112240', 
                           border: '1px solid #64ffda',
@@ -339,8 +425,8 @@ const Comparison = () => {
               {Object.entries(comparisonData.useCases).map(([key, useCase]) => (
                 <div key={key} className="usecase-card">
                   <div className="usecase-header">
-                    <h3>{useCase.name}</h3>
-                    <p>{useCase.description}</p>
+                    <h3>{t(`comparisonData.useCases.${key}.name`)}</h3>
+                    <p>{t(`comparisonData.useCases.${key}.desc`)}</p>
                   </div>
                   
                   <div className="usecase-content">
@@ -371,7 +457,7 @@ const Comparison = () => {
                     <div className="usecase-examples">
                       <h4>{t('comparison.usecases.examples')}</h4>
                       <ul>
-                        {useCase.examples.map((example, idx) => (
+                        {t(`comparisonData.useCases.${key}.examples`).map((example, idx) => (
                           <li key={idx}>{example}</li>
                         ))}
                       </ul>

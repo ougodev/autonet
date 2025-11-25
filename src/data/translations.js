@@ -218,7 +218,106 @@ export const translations = {
       flexrayTitle: 'Simulation FlexRay',
       flexrayDesc: 'Explorez les cycles statiques et dynamiques de FlexRay',
       ethernetTitle: 'Simulation Ethernet Automobile',
-      ethernetDesc: 'Découvrez les communications haute vitesse Ethernet'
+      ethernetDesc: 'Découvrez les communications haute vitesse Ethernet',
+      // CAN Simulator
+      can: {
+        title: 'Simulateur d\'Arbitrage CAN',
+        subtitle: 'Observez comment les nœuds CAN rivalisent pour l\'accès au bus via l\'arbitrage par priorité',
+        startArbitration: 'Démarrer l\'Arbitrage',
+        arbitrating: 'Arbitrage en cours...',
+        busIdle: 'BUS EN ATTENTE',
+        arbitrationBit: 'ARBITRAGE (Bit {current}/11)',
+        transmittingState: 'TRANSMISSION',
+        nodeIdle: 'En attente',
+        nodeCompeting: 'En compétition',
+        nodeLost: 'Perdu',
+        nodeTransmitting: 'Transmission',
+        nodeWaiting: 'En attente',
+        winner: 'GAGNANT',
+        transmittedMessage: 'Message Transmis :',
+        eventLog: 'Journal des Événements',
+        howItWorks: 'Comment fonctionne l\'Arbitrage CAN',
+        nonDestructive: 'Non-destructif : Tous les nœuds peuvent transmettre simultanément sans perte de données',
+        dominantRecessive: 'Dominant (0) vs Récessif (1) : Quand les nœuds envoient des bits différents, 0 gagne',
+        lowerIdPriority: 'ID bas = Priorité haute : Le nœud avec l\'ID le plus bas gagne l\'arbitrage',
+        csmacd: 'CSMA/CD+AMP : Accès Multiple avec Détection de Collision et Arbitrage sur Priorité de Message',
+        engineEcu: 'ECU Moteur',
+        brakeEcu: 'ECU Freinage',
+        airbagEcu: 'ECU Airbag',
+        bodyEcu: 'ECU Carrosserie'
+      },
+      // LIN Simulator
+      lin: {
+        title: 'Simulateur LIN Bus',
+        subtitle: 'Communication Maître-Esclave avec interrogation programmée',
+        runSchedule: 'Exécuter le Programme',
+        runningSchedule: 'Programme en cours...',
+        masterEcu: 'ECU Maître',
+        windowMotor: 'Moteur de Vitre',
+        mirrorControl: 'Contrôle Rétroviseur',
+        seatHeater: 'Chauffage Siège',
+        rainSensor: 'Capteur de Pluie',
+        currentSchedule: 'Programme Actuel',
+        communicationLog: 'Journal de Communication',
+        howItWorks: 'Comment fonctionne le LIN Bus',
+        masterSlave: 'Maître-Esclave : Un seul maître contrôle tout le timing de communication',
+        scheduleTable: 'Table de Programme : Séquence prédéfinie de PIDs à interroger',
+        frameStructure: 'Structure de Trame : SYNC (0x55) + PID + Données + Checksum',
+        lowCost: 'Faible Coût : Un seul fil, 20 kbit/s, pour les sous-systèmes non critiques'
+      },
+      // FlexRay Simulator
+      flexray: {
+        title: 'Simulateur FlexRay',
+        subtitle: 'Communication déclenchée par le temps avec segments statiques et dynamiques',
+        startFlexRay: 'Démarrer FlexRay',
+        running: 'En cours...',
+        staticSegment: 'Segment Statique',
+        dynamicSegment: 'Dynamique',
+        symbolWindow: 'FT',
+        nit: 'TRI',
+        staticSlots: 'Slots Statiques (TDMA)',
+        dynamicSlots: 'Segment Dynamique (FTDMA)',
+        steeringEcu: 'ECU Direction',
+        brakeEcu: 'ECU Freinage',
+        suspensionEcu: 'ECU Suspension',
+        engineEcu: 'ECU Moteur',
+        diagnostic: 'Diagnostic',
+        configUpdate: 'Mise à jour Config',
+        flexrayLog: 'Journal FlexRay',
+        howItWorks: 'Comment fonctionne FlexRay',
+        dualChannel: 'Double Canal : Deux canaux indépendants (A & B) pour la redondance',
+        tdmaStatic: 'TDMA Statique : Slots temporels garantis pour les données critiques',
+        ftdmaDynamic: 'FTDMA Dynamique : Mini-slots flexibles pour les données événementielles',
+        highBandwidth: '10 Mbit/s : Haute bande passante pour les applications safety-critical'
+      },
+      // Ethernet Simulator
+      ethernet: {
+        title: 'Simulateur Ethernet Automobile',
+        subtitle: '100BASE-T1 / 1000BASE-T1 réseau commuté avec VLANs',
+        startSimulation: 'Démarrer la Simulation',
+        simulating: 'Simulation en cours...',
+        packetsSent: 'Paquets Envoyés',
+        received: 'Reçus',
+        dropped: 'Perdus',
+        centralGateway: 'Gateway Central',
+        domainSwitchA: 'Switch Domaine A',
+        domainSwitchB: 'Switch Domaine B',
+        adasCamera: 'Caméra ADAS',
+        radarSensor: 'Capteur Radar',
+        infotainment: 'Infotainment',
+        telematics: 'Télématique',
+        obdPort: 'Port OBD',
+        ports: 'ports',
+        traffic: 'Trafic',
+        sending: 'Envoi...',
+        receiving: 'Réception...',
+        networkLog: 'Journal Réseau',
+        howItWorks: 'Comment fonctionne l\'Ethernet Automobile',
+        baseT1_100: '100BASE-T1 : Paire torsadée unique, 100 Mbps, pour la plupart des ECUs',
+        baseT1_1000: '1000BASE-T1 : Paire torsadée unique, 1 Gbps, pour les caméras/ADAS',
+        vlans: 'VLANs : Réseaux virtuels pour l\'isolation du trafic et la sécurité',
+        tsn: 'TSN : Time-Sensitive Networking pour une latence déterministe'
+      }
     },
     
     // Digital Twin
@@ -373,6 +472,231 @@ export const translations = {
       close: 'Fermer',
       yes: 'Oui',
       no: 'Non'
+    },
+    
+    // Protocol Card
+    protocolCard: {
+      payload: 'Payload',
+      topology: 'Topologie',
+      exploreDetail: 'Explorer en détail'
+    },
+    
+    // Protocols Data (for cards and detail pages)
+    protocols: {
+      CAN: {
+        description: 'Le protocole CAN est le standard de facto pour les communications embarquées automobiles. Développé par Bosch en 1983 et standardisé en 1986, il permet une communication robuste entre les ECUs.',
+        applications: [
+          'Gestion moteur (ECM/PCM)',
+          'Transmission automatique (TCU)',
+          'Système de freinage ABS/ESP'
+        ]
+      },
+      CANFD: {
+        description: 'CAN FD est l\'évolution du CAN classique, développée pour répondre aux besoins croissants en bande passante des systèmes ADAS. Il permet des débits jusqu\'à 8 Mbit/s.',
+        applications: [
+          'ADAS (Systèmes d\'Aide à la Conduite)',
+          'Mises à jour firmware OTA',
+          'Capteurs haute résolution'
+        ]
+      },
+      LIN: {
+        description: 'Le LIN est un protocole de communication série à faible coût, conçu comme complément au CAN pour les applications non critiques. Il utilise une architecture maître-esclave.',
+        applications: [
+          'Lève-vitres électriques',
+          'Rétroviseurs électriques',
+          'Commandes de sièges'
+        ]
+      },
+      FlexRay: {
+        description: 'FlexRay est un protocole de communication haute performance conçu pour les applications automobiles critiques en termes de sécurité. Il offre un déterminisme garanti.',
+        applications: [
+          'Direction assistée électrique (EPS)',
+          'Suspension active/adaptative',
+          'Freinage électronique (Brake-by-Wire)'
+        ]
+      },
+      MOST: {
+        description: 'MOST est un protocole optimisé pour le transport de flux multimédia (audio, vidéo) dans les véhicules. Il utilise une topologie en anneau et garantit la bande passante.',
+        applications: [
+          'Système audio premium/surround',
+          'Affichage tête haute (HUD)',
+          'Écrans passagers arrière'
+        ]
+      },
+      Ethernet: {
+        description: 'L\'Ethernet automobile adapte le standard Ethernet pour les contraintes véhicule : une seule paire torsadée, EMC renforcée, et temps réel via TSN.',
+        applications: [
+          'Backbone véhicule haute vitesse',
+          'Caméras ADAS (surround view)',
+          'Radar et LiDAR'
+        ]
+      },
+      topologies: {
+        linearBus: 'Bus linéaire',
+        masterSlave: 'Maître-Esclave (Bus)',
+        busStarHybrid: 'Bus, Étoile, ou Hybride',
+        ring: 'Anneau (Ring)',
+        star: 'Étoile (Switch central)'
+      }
+    },
+    
+    // Digital Twin Network
+    digitalTwinNetwork: {
+      centralGateway: 'Gateway Central',
+      gatewayDesc: 'Point central de routage entre tous les domaines - Gère la sécurité et le filtrage des messages',
+      powertrain: {
+        name: 'Domaine Powertrain',
+        desc: 'Contrôle moteur, transmission, gestion thermique et systèmes de propulsion',
+        ecus: {
+          ecm: { name: 'ECM', desc: 'Module de Contrôle Moteur' },
+          tcu: { name: 'TCU', desc: 'Unité de Contrôle Transmission' },
+          fpcm: { name: 'FPCM', desc: 'Module de Contrôle Pompe Carburant' },
+          etc: { name: 'ETC', desc: 'Contrôle Électronique Papillon' }
+        }
+      },
+      chassis: {
+        name: 'Domaine Châssis',
+        desc: 'Systèmes critiques de sécurité active - freinage, direction, suspension',
+        ecus: {
+          esp: { name: 'ESP', desc: 'Programme de Stabilité Électronique' },
+          abs: { name: 'ABS', desc: 'Système Antiblocage des Roues' },
+          eps: { name: 'EPS', desc: 'Direction Assistée Électrique' },
+          cdc: { name: 'CDC', desc: 'Amortissement Continu Contrôlé' }
+        }
+      },
+      body: {
+        name: 'Domaine Carrosserie',
+        desc: 'Confort, éclairage, serrures, rétroviseurs et accessoires intérieurs',
+        ecus: {
+          bcm: { name: 'BCM', desc: 'Module de Contrôle Carrosserie' },
+          peps: { name: 'PEPS', desc: 'Entrée/Démarrage Passif' },
+          rcm: { name: 'RCM', desc: 'Module Capteur de Pluie' },
+          mlm: { name: 'MLM', desc: 'Contrôle Rétroviseur Gauche' }
+        }
+      },
+      infotainment: {
+        name: 'Domaine Infotainment',
+        desc: 'Système multimédia, navigation, connectivité smartphone et services cloud',
+        ecus: {
+          hu: { name: 'HU', desc: 'Unité Centrale' },
+          tcu: { name: 'TCU', desc: 'Unité de Contrôle Télématique' },
+          amp: { name: 'AMP', desc: 'Amplificateur Audio' },
+          rse: { name: 'RSE', desc: 'Divertissement Siège Arrière' }
+        }
+      },
+      adas: {
+        name: 'Domaine ADAS',
+        desc: 'Aide à la conduite, détection obstacles, parking automatique et conduite autonome',
+        ecus: {
+          adasEcu: { name: 'ADAS ECU', desc: 'Unité de Traitement Central' },
+          fwc: { name: 'FWC', desc: 'Caméra Avant' },
+          srr: { name: 'SRR', desc: 'Radar Courte Portée' },
+          uss: { name: 'USS', desc: 'Capteurs Ultrasoniques' }
+        }
+      },
+      messages: {
+        rpm: 'Régime',
+        wheelSpeed: 'Vitesse Roue',
+        object: 'Objet',
+        absActive: 'ABS Actif',
+        emergencyBrake: 'Frein Urgence',
+        standby: 'En veille',
+        telemetry: 'télémétrie',
+        safety: 'sécurité',
+        sensor: 'capteur',
+        status: 'statut',
+        media: 'média',
+        control: 'contrôle'
+      },
+      realtimeBus: 'Bus de Messages en Temps Réel'
+    },
+    
+    // Comparison table data
+    comparisonData: {
+      bitrate: {
+        name: 'Débit Maximum',
+        desc: 'Vitesse de transmission maximale'
+      },
+      payload: {
+        name: 'Taille Payload',
+        desc: 'Quantité maximale de données par trame'
+      },
+      topology: {
+        name: 'Topologie',
+        desc: 'Architecture physique du réseau'
+      },
+      medium: {
+        name: 'Support Physique',
+        desc: 'Type de câblage utilisé'
+      },
+      deterministic: {
+        name: 'Déterminisme',
+        desc: 'Garantie de temps de transmission'
+      },
+      redundancy: {
+        name: 'Redondance',
+        desc: 'Support de canaux redondants'
+      },
+      cost: {
+        name: 'Coût',
+        desc: 'Coût relatif d\'implémentation'
+      },
+      year: {
+        name: 'Année Introduction',
+        desc: 'Année de première utilisation automobile'
+      },
+      values: {
+        linearBus: 'Bus linéaire',
+        masterSlaveBus: 'Bus Maître-Esclave',
+        busStarHybrid: 'Bus/Étoile/Hybride',
+        ring: 'Anneau',
+        starSwitch: 'Étoile (Switch)',
+        diffWires2: '2 fils différentiels',
+        wire1Ground: '1 fil + masse',
+        wires2to4: '2 à 4 fils',
+        fiberCoax: 'Fibre optique/Coax',
+        twistedPair: '1 paire torsadée',
+        withTDMA: 'Oui (TDMA)',
+        withTSN: 'Avec TSN',
+        dualChannel: 'Oui (Double canal)',
+        ringBypass: 'Bypass anneau',
+        possible802: 'Possible (802.1CB)',
+        veryLow: 'Très faible',
+        low: 'Faible',
+        lowMedium: 'Faible-Moyen',
+        medium: 'Moyen',
+        mediumDecreasing: 'Moyen (en baisse)',
+        high: 'Élevé',
+        bytes: 'octets',
+        variable: 'Variable'
+      },
+      useCases: {
+        safetyCritical: {
+          name: 'Applications Safety-Critical',
+          desc: 'Systèmes où une défaillance met en danger la vie',
+          examples: ['Brake-by-Wire', 'Steer-by-Wire', 'Airbags']
+        },
+        powertrain: {
+          name: 'Powertrain',
+          desc: 'Gestion moteur et transmission',
+          examples: ['ECU Moteur', 'Transmission', 'Gestion batterie VE']
+        },
+        comfort: {
+          name: 'Confort / Carrosserie',
+          desc: 'Fonctions de confort non critiques',
+          examples: ['Vitres', 'Sièges', 'Climatisation', 'Éclairage']
+        },
+        infotainment: {
+          name: 'Infotainment',
+          desc: 'Multimédia et connectivité',
+          examples: ['Audio', 'Navigation', 'Écrans', 'Téléphone']
+        },
+        adas: {
+          name: 'ADAS',
+          desc: 'Aide à la conduite avancée',
+          examples: ['Caméras', 'Radar', 'LiDAR', 'Fusion capteurs']
+        }
+      }
     }
   },
   
@@ -595,7 +919,106 @@ export const translations = {
       flexrayTitle: 'FlexRay Simulation',
       flexrayDesc: 'Explore static and dynamic FlexRay cycles',
       ethernetTitle: 'Automotive Ethernet Simulation',
-      ethernetDesc: 'Discover high-speed Ethernet communications'
+      ethernetDesc: 'Discover high-speed Ethernet communications',
+      // CAN Simulator
+      can: {
+        title: 'CAN Bus Arbitration Simulator',
+        subtitle: 'Watch how CAN nodes compete for bus access using priority-based arbitration',
+        startArbitration: 'Start Arbitration',
+        arbitrating: 'Arbitrating...',
+        busIdle: 'BUS IDLE',
+        arbitrationBit: 'ARBITRATING (Bit {current}/11)',
+        transmittingState: 'TRANSMITTING',
+        nodeIdle: 'Idle',
+        nodeCompeting: 'Competing',
+        nodeLost: 'Lost',
+        nodeTransmitting: 'Transmitting',
+        nodeWaiting: 'Waiting',
+        winner: 'WINNER',
+        transmittedMessage: 'Transmitted Message:',
+        eventLog: 'Event Log',
+        howItWorks: 'How CAN Arbitration Works',
+        nonDestructive: 'Non-destructive: All nodes can transmit simultaneously without data loss',
+        dominantRecessive: 'Dominant (0) vs Recessive (1): When nodes send different bits, 0 wins',
+        lowerIdPriority: 'Lower ID = Higher Priority: Node with lowest ID wins arbitration',
+        csmacd: 'CSMA/CD+AMP: Carrier Sense Multiple Access with Collision Detection and Arbitration on Message Priority',
+        engineEcu: 'Engine ECU',
+        brakeEcu: 'Brake ECU',
+        airbagEcu: 'Airbag ECU',
+        bodyEcu: 'Body ECU'
+      },
+      // LIN Simulator
+      lin: {
+        title: 'LIN Bus Simulator',
+        subtitle: 'Master-Slave communication with scheduled polling',
+        runSchedule: 'Run Schedule',
+        runningSchedule: 'Running Schedule...',
+        masterEcu: 'Master ECU',
+        windowMotor: 'Window Motor',
+        mirrorControl: 'Mirror Control',
+        seatHeater: 'Seat Heater',
+        rainSensor: 'Rain Sensor',
+        currentSchedule: 'Current Schedule',
+        communicationLog: 'Communication Log',
+        howItWorks: 'How LIN Bus Works',
+        masterSlave: 'Master-Slave: Single master controls all communication timing',
+        scheduleTable: 'Schedule Table: Pre-defined sequence of PIDs to poll',
+        frameStructure: 'Frame Structure: SYNC (0x55) + PID + Data + Checksum',
+        lowCost: 'Low Cost: Single wire, 20 kbit/s, for non-critical subsystems'
+      },
+      // FlexRay Simulator
+      flexray: {
+        title: 'FlexRay Simulator',
+        subtitle: 'Time-triggered communication with static and dynamic segments',
+        startFlexRay: 'Start FlexRay',
+        running: 'Running...',
+        staticSegment: 'Static Segment',
+        dynamicSegment: 'Dynamic',
+        symbolWindow: 'SW',
+        nit: 'NIT',
+        staticSlots: 'Static Slots (TDMA)',
+        dynamicSlots: 'Dynamic Segment (FTDMA)',
+        steeringEcu: 'Steering ECU',
+        brakeEcu: 'Brake ECU',
+        suspensionEcu: 'Suspension ECU',
+        engineEcu: 'Engine ECU',
+        diagnostic: 'Diagnostic',
+        configUpdate: 'Config Update',
+        flexrayLog: 'FlexRay Log',
+        howItWorks: 'How FlexRay Works',
+        dualChannel: 'Dual Channel: Two independent channels (A & B) for redundancy',
+        tdmaStatic: 'TDMA Static: Guaranteed time slots for critical data',
+        ftdmaDynamic: 'FTDMA Dynamic: Flexible mini-slots for event-driven data',
+        highBandwidth: '10 Mbit/s: High bandwidth for safety-critical applications'
+      },
+      // Ethernet Simulator
+      ethernet: {
+        title: 'Automotive Ethernet Simulator',
+        subtitle: '100BASE-T1 / 1000BASE-T1 switched network with VLANs',
+        startSimulation: 'Start Simulation',
+        simulating: 'Simulating...',
+        packetsSent: 'Packets Sent',
+        received: 'Received',
+        dropped: 'Dropped',
+        centralGateway: 'Central Gateway',
+        domainSwitchA: 'Domain Switch A',
+        domainSwitchB: 'Domain Switch B',
+        adasCamera: 'ADAS Camera',
+        radarSensor: 'Radar Sensor',
+        infotainment: 'Infotainment',
+        telematics: 'Telematics',
+        obdPort: 'OBD Port',
+        ports: 'ports',
+        traffic: 'Traffic',
+        sending: 'Sending...',
+        receiving: 'Receiving...',
+        networkLog: 'Network Log',
+        howItWorks: 'How Automotive Ethernet Works',
+        baseT1_100: '100BASE-T1: Single twisted pair, 100 Mbps, for most ECUs',
+        baseT1_1000: '1000BASE-T1: Single twisted pair, 1 Gbps, for cameras/ADAS',
+        vlans: 'VLANs: Virtual networks for traffic isolation and security',
+        tsn: 'TSN: Time-Sensitive Networking for deterministic latency'
+      }
     },
     
     // Digital Twin
@@ -750,6 +1173,231 @@ export const translations = {
       close: 'Close',
       yes: 'Yes',
       no: 'No'
+    },
+    
+    // Protocol Card
+    protocolCard: {
+      payload: 'Payload',
+      topology: 'Topology',
+      exploreDetail: 'Explore in detail'
+    },
+    
+    // Protocols Data (for cards and detail pages)
+    protocols: {
+      CAN: {
+        description: 'The CAN protocol is the de facto standard for automotive embedded communications. Developed by Bosch in 1983 and standardized in 1986, it enables robust communication between ECUs.',
+        applications: [
+          'Engine Management (ECM/PCM)',
+          'Automatic Transmission (TCU)',
+          'ABS/ESP Braking System'
+        ]
+      },
+      CANFD: {
+        description: 'CAN FD is the evolution of classic CAN, developed to meet the growing bandwidth needs of ADAS systems. It allows speeds up to 8 Mbit/s.',
+        applications: [
+          'ADAS (Advanced Driver Assistance Systems)',
+          'OTA Firmware Updates',
+          'High Resolution Sensors'
+        ]
+      },
+      LIN: {
+        description: 'LIN is a low-cost serial communication protocol, designed as a complement to CAN for non-critical applications. It uses a master-slave architecture.',
+        applications: [
+          'Electric Windows',
+          'Electric Mirrors',
+          'Seat Controls'
+        ]
+      },
+      FlexRay: {
+        description: 'FlexRay is a high-performance communication protocol designed for safety-critical automotive applications. It offers guaranteed determinism.',
+        applications: [
+          'Electric Power Steering (EPS)',
+          'Active/Adaptive Suspension',
+          'Electronic Braking (Brake-by-Wire)'
+        ]
+      },
+      MOST: {
+        description: 'MOST is a protocol optimized for multimedia streaming (audio, video) in vehicles. It uses a ring topology and guarantees bandwidth.',
+        applications: [
+          'Premium/Surround Audio System',
+          'Head-Up Display (HUD)',
+          'Rear Passenger Screens'
+        ]
+      },
+      Ethernet: {
+        description: 'Automotive Ethernet adapts the Ethernet standard for vehicle constraints: single twisted pair, enhanced EMC, and real-time via TSN.',
+        applications: [
+          'High-Speed Vehicle Backbone',
+          'ADAS Cameras (Surround View)',
+          'Radar and LiDAR'
+        ]
+      },
+      topologies: {
+        linearBus: 'Linear Bus',
+        masterSlave: 'Master-Slave (Bus)',
+        busStarHybrid: 'Bus, Star, or Hybrid',
+        ring: 'Ring',
+        star: 'Star (Central Switch)'
+      }
+    },
+    
+    // Digital Twin Network
+    digitalTwinNetwork: {
+      centralGateway: 'Central Gateway',
+      gatewayDesc: 'Central routing point between all domains - Manages security and message filtering',
+      powertrain: {
+        name: 'Powertrain Domain',
+        desc: 'Engine control, transmission, thermal management and propulsion systems',
+        ecus: {
+          ecm: { name: 'ECM', desc: 'Engine Control Module' },
+          tcu: { name: 'TCU', desc: 'Transmission Control Unit' },
+          fpcm: { name: 'FPCM', desc: 'Fuel Pump Control Module' },
+          etc: { name: 'ETC', desc: 'Electronic Throttle Control' }
+        }
+      },
+      chassis: {
+        name: 'Chassis Domain',
+        desc: 'Active safety critical systems - braking, steering, suspension',
+        ecus: {
+          esp: { name: 'ESP', desc: 'Electronic Stability Program' },
+          abs: { name: 'ABS', desc: 'Anti-lock Braking System' },
+          eps: { name: 'EPS', desc: 'Electric Power Steering' },
+          cdc: { name: 'CDC', desc: 'Continuous Damping Control' }
+        }
+      },
+      body: {
+        name: 'Body Domain',
+        desc: 'Comfort, lighting, locks, mirrors and interior accessories',
+        ecus: {
+          bcm: { name: 'BCM', desc: 'Body Control Module' },
+          peps: { name: 'PEPS', desc: 'Passive Entry/Start' },
+          rcm: { name: 'RCM', desc: 'Rain Sensor Module' },
+          mlm: { name: 'MLM', desc: 'Mirror Control Left' }
+        }
+      },
+      infotainment: {
+        name: 'Infotainment Domain',
+        desc: 'Multimedia system, navigation, smartphone connectivity and cloud services',
+        ecus: {
+          hu: { name: 'HU', desc: 'Head Unit' },
+          tcu: { name: 'TCU', desc: 'Telematics Control Unit' },
+          amp: { name: 'AMP', desc: 'Audio Amplifier' },
+          rse: { name: 'RSE', desc: 'Rear Seat Entertainment' }
+        }
+      },
+      adas: {
+        name: 'ADAS Domain',
+        desc: 'Driver assistance, obstacle detection, automatic parking and autonomous driving',
+        ecus: {
+          adasEcu: { name: 'ADAS ECU', desc: 'Central Processing Unit' },
+          fwc: { name: 'FWC', desc: 'Front Camera' },
+          srr: { name: 'SRR', desc: 'Short Range Radar' },
+          uss: { name: 'USS', desc: 'Ultrasonic Sensors' }
+        }
+      },
+      messages: {
+        rpm: 'RPM',
+        wheelSpeed: 'Wheel Speed',
+        object: 'Object',
+        absActive: 'ABS Active',
+        emergencyBrake: 'Emergency Brake',
+        standby: 'Standby',
+        telemetry: 'telemetry',
+        safety: 'safety',
+        sensor: 'sensor',
+        status: 'status',
+        media: 'media',
+        control: 'control'
+      },
+      realtimeBus: 'Real-Time Message Bus'
+    },
+    
+    // Comparison table data
+    comparisonData: {
+      bitrate: {
+        name: 'Maximum Bitrate',
+        desc: 'Maximum transmission speed'
+      },
+      payload: {
+        name: 'Payload Size',
+        desc: 'Maximum data per frame'
+      },
+      topology: {
+        name: 'Topology',
+        desc: 'Physical network architecture'
+      },
+      medium: {
+        name: 'Physical Medium',
+        desc: 'Type of cabling used'
+      },
+      deterministic: {
+        name: 'Determinism',
+        desc: 'Guaranteed transmission time'
+      },
+      redundancy: {
+        name: 'Redundancy',
+        desc: 'Redundant channel support'
+      },
+      cost: {
+        name: 'Cost',
+        desc: 'Relative implementation cost'
+      },
+      year: {
+        name: 'Introduction Year',
+        desc: 'Year of first automotive use'
+      },
+      values: {
+        linearBus: 'Linear Bus',
+        masterSlaveBus: 'Master-Slave Bus',
+        busStarHybrid: 'Bus/Star/Hybrid',
+        ring: 'Ring',
+        starSwitch: 'Star (Switch)',
+        diffWires2: '2 differential wires',
+        wire1Ground: '1 wire + ground',
+        wires2to4: '2 to 4 wires',
+        fiberCoax: 'Fiber optic/Coax',
+        twistedPair: '1 twisted pair',
+        withTDMA: 'Yes (TDMA)',
+        withTSN: 'With TSN',
+        dualChannel: 'Yes (Dual channel)',
+        ringBypass: 'Ring bypass',
+        possible802: 'Possible (802.1CB)',
+        veryLow: 'Very low',
+        low: 'Low',
+        lowMedium: 'Low-Medium',
+        medium: 'Medium',
+        mediumDecreasing: 'Medium (decreasing)',
+        high: 'High',
+        bytes: 'bytes',
+        variable: 'Variable'
+      },
+      useCases: {
+        safetyCritical: {
+          name: 'Safety-Critical Applications',
+          desc: 'Systems where failure endangers life',
+          examples: ['Brake-by-Wire', 'Steer-by-Wire', 'Airbags']
+        },
+        powertrain: {
+          name: 'Powertrain',
+          desc: 'Engine and transmission management',
+          examples: ['Engine ECU', 'Transmission', 'EV Battery Management']
+        },
+        comfort: {
+          name: 'Comfort / Body',
+          desc: 'Non-critical comfort functions',
+          examples: ['Windows', 'Seats', 'Climate Control', 'Lighting']
+        },
+        infotainment: {
+          name: 'Infotainment',
+          desc: 'Multimedia and connectivity',
+          examples: ['Audio', 'Navigation', 'Displays', 'Phone']
+        },
+        adas: {
+          name: 'ADAS',
+          desc: 'Advanced driver assistance',
+          examples: ['Cameras', 'Radar', 'LiDAR', 'Sensor Fusion']
+        }
+      }
     }
   }
 };

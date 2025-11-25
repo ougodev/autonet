@@ -90,11 +90,12 @@ const Icons = {
 
 // ==================== CAN BUS ARBITRATION SIMULATOR ====================
 const CANArbitrationSimulator = () => {
+  const { t } = useLanguage();
   const [nodes, setNodes] = useState([
-    { id: 1, name: 'Engine ECU', priority: 0x100, color: '#ef4444', message: 'Engine RPM: 3500', status: 'idle', winning: false, hasWon: false },
-    { id: 2, name: 'Brake ECU', priority: 0x080, color: '#22c55e', message: 'ABS Active', status: 'idle', winning: false, hasWon: false },
-    { id: 3, name: 'Airbag ECU', priority: 0x050, color: '#f97316', message: 'Crash Detected!', status: 'idle', winning: false, hasWon: false },
-    { id: 4, name: 'Body ECU', priority: 0x200, color: '#3b82f6', message: 'Door Open', status: 'idle', winning: false, hasWon: false },
+    { id: 1, name: 'can.engineEcu', priority: 0x100, color: '#ef4444', message: 'Engine RPM: 3500', status: 'idle', winning: false, hasWon: false },
+    { id: 2, name: 'can.brakeEcu', priority: 0x080, color: '#22c55e', message: 'ABS Active', status: 'idle', winning: false, hasWon: false },
+    { id: 3, name: 'can.airbagEcu', priority: 0x050, color: '#f97316', message: 'Crash Detected!', status: 'idle', winning: false, hasWon: false },
+    { id: 4, name: 'can.bodyEcu', priority: 0x200, color: '#3b82f6', message: 'Door Open', status: 'idle', winning: false, hasWon: false },
   ]);
   const [busState, setBusState] = useState('idle');
   const [currentBit, setCurrentBit] = useState(0);
@@ -206,8 +207,8 @@ const CANArbitrationSimulator = () => {
   return (
     <div className="simulator-container can-simulator">
       <div className="simulator-header">
-        <h2><Icons.Car size={24} color="#ef4444" /> CAN Bus Arbitration Simulator</h2>
-        <p>Watch how CAN nodes compete for bus access using priority-based arbitration</p>
+        <h2><Icons.Car size={24} color="#ef4444" /> {t('simulation.can.title')}</h2>
+        <p>{t('simulation.can.subtitle')}</p>
       </div>
       
       <div className="simulator-controls">
@@ -216,10 +217,10 @@ const CANArbitrationSimulator = () => {
           onClick={startArbitration}
           disabled={isRunning}
         >
-          {isRunning ? <><Icons.Loading size={14} /> Arbitrating...</> : <><Icons.Play size={14} /> Start Arbitration</>}
+          {isRunning ? <><Icons.Loading size={14} /> {t('simulation.can.arbitrating')}</> : <><Icons.Play size={14} /> {t('simulation.can.startArbitration')}</>}
         </button>
         <div className="speed-control" key={`speed-can-${speed}`}>
-          <label>Speed:</label>
+          <label>{t('simulation.speed')}:</label>
           <input 
             type="range" 
             min="100" 
@@ -234,9 +235,9 @@ const CANArbitrationSimulator = () => {
       <div className="can-bus-visual">
         <div className="bus-line">
           <div className={`bus-state ${busState}`}>
-            {busState === 'idle' && 'BUS IDLE'}
-            {busState === 'arbitrating' && `ARBITRATING (Bit ${currentBit}/11)`}
-            {busState === 'transmitting' && 'TRANSMITTING'}
+            {busState === 'idle' && t('simulation.can.busIdle')}
+            {busState === 'arbitrating' && t('simulation.can.arbitrationBit').replace('{current}', currentBit)}
+            {busState === 'transmitting' && t('simulation.can.transmittingState')}
           </div>
           <div className="arbitration-bits">
             {arbitrationBits.map((ab, i) => (
@@ -263,7 +264,7 @@ const CANArbitrationSimulator = () => {
               transition={{ delay: index * 0.1 }}
             >
               <div className="node-header">
-                <span className="node-name">{node.name}</span>
+                <span className="node-name">{t(`simulation.${node.name}`)}</span>
                 <span className="node-id">ID: 0x{node.priority.toString(16).toUpperCase()}</span>
               </div>
               <div className="node-binary">
@@ -277,31 +278,31 @@ const CANArbitrationSimulator = () => {
                 {node.status === 'idle' && (
                   <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16" rx="2"/><rect x="14" y="4" width="4" height="16" rx="2"/></svg>
-                    Idle
+                    {t('simulation.can.nodeIdle')}
                   </span>
                 )}
                 {node.status === 'competing' && (
                   <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/><path d="M9 12l2 2 4-4"/></svg>
-                    Competing
+                    {t('simulation.can.nodeCompeting')}
                   </span>
                 )}
                 {node.status === 'lost' && (
                   <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
-                    Lost
+                    {t('simulation.can.nodeLost')}
                   </span>
                 )}
                 {node.status === 'transmitting' && (
                   <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-                    Transmitting
+                    {t('simulation.can.nodeTransmitting')}
                   </span>
                 )}
                 {node.status === 'waiting' && (
                   <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-                    Waiting
+                    {t('simulation.can.nodeWaiting')}
                   </span>
                 )}
               </div>
@@ -314,7 +315,7 @@ const CANArbitrationSimulator = () => {
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="gold" style={{ marginRight: '0.3rem' }}>
                     <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
                   </svg>
-                  WINNER
+                  {t('simulation.can.winner')}
                 </motion.div>
               )}
             </motion.div>
@@ -328,7 +329,7 @@ const CANArbitrationSimulator = () => {
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
         >
-          <div className="message-header"><Icons.Message size={16} /> Transmitted Message:</div>
+          <div className="message-header"><Icons.Message size={16} /> {t('simulation.can.transmittedMessage')}</div>
           <div className="message-content" style={{ color: winner.color }}>
             {transmittingMessage}
             <span className="cursor">|</span>
@@ -337,7 +338,7 @@ const CANArbitrationSimulator = () => {
       )}
 
       <div className="log-container">
-        <div className="log-header"><Icons.Clipboard size={16} /> Event Log</div>
+        <div className="log-header"><Icons.Clipboard size={16} /> {t('simulation.can.eventLog')}</div>
         <div className="log-content">
           {logs.map((log, i) => (
             <div key={i} className={`log-entry ${log.type}`}>
@@ -349,12 +350,12 @@ const CANArbitrationSimulator = () => {
       </div>
 
       <div className="education-panel">
-        <h3><Icons.Book size={18} /> How CAN Arbitration Works</h3>
+        <h3><Icons.Book size={18} /> {t('simulation.can.howItWorks')}</h3>
         <ul>
-          <li><strong>Non-destructive:</strong> All nodes can transmit simultaneously without data loss</li>
-          <li><strong>Dominant (0) vs Recessive (1):</strong> When nodes send different bits, 0 wins</li>
-          <li><strong>Lower ID = Higher Priority:</strong> Node with lowest ID wins arbitration</li>
-          <li><strong>CSMA/CD+AMP:</strong> Carrier Sense Multiple Access with Collision Detection and Arbitration on Message Priority</li>
+          <li><strong>Non-destructive:</strong> {t('simulation.can.nonDestructive')}</li>
+          <li><strong>Dominant (0) vs Recessive (1):</strong> {t('simulation.can.dominantRecessive')}</li>
+          <li><strong>Lower ID = Higher Priority:</strong> {t('simulation.can.lowerIdPriority')}</li>
+          <li><strong>CSMA/CD+AMP:</strong> {t('simulation.can.csmacd')}</li>
         </ul>
       </div>
     </div>
@@ -363,12 +364,13 @@ const CANArbitrationSimulator = () => {
 
 // ==================== LIN BUS SIMULATOR ====================
 const LINBusSimulator = () => {
-  const [master, setMaster] = useState({ name: 'Master ECU', status: 'idle', currentTask: '' });
+  const { t } = useLanguage();
+  const [master, setMaster] = useState({ name: 'lin.masterEcu', status: 'idle', currentTask: '' });
   const [slaves, setSlaves] = useState([
-    { id: 1, name: 'Window Motor', pid: 0x10, data: 'Position: 75%', status: 'idle', response: null },
-    { id: 2, name: 'Mirror Control', pid: 0x11, data: 'Angle: 15°', status: 'idle', response: null },
-    { id: 3, name: 'Seat Heater', pid: 0x12, data: 'Temp: Level 2', status: 'idle', response: null },
-    { id: 4, name: 'Rain Sensor', pid: 0x13, data: 'Intensity: 60%', status: 'idle', response: null },
+    { id: 1, name: 'lin.windowMotor', pid: 0x10, data: 'Position: 75%', status: 'idle', response: null },
+    { id: 2, name: 'lin.mirrorControl', pid: 0x11, data: 'Angle: 15°', status: 'idle', response: null },
+    { id: 3, name: 'lin.seatHeater', pid: 0x12, data: 'Temp: Level 2', status: 'idle', response: null },
+    { id: 4, name: 'lin.rainSensor', pid: 0x13, data: 'Intensity: 60%', status: 'idle', response: null },
   ]);
   const [schedule, setSchedule] = useState([]);
   const [currentSlot, setCurrentSlot] = useState(-1);
@@ -461,8 +463,8 @@ const LINBusSimulator = () => {
   return (
     <div className="simulator-container lin-simulator">
       <div className="simulator-header">
-        <h2><Icons.Network size={24} color="#22c55e" /> LIN Bus Simulator</h2>
-        <p>Master-Slave communication with scheduled polling</p>
+        <h2><Icons.Network size={24} color="#22c55e" /> {t('simulation.lin.title')}</h2>
+        <p>{t('simulation.lin.subtitle')}</p>
       </div>
 
       <div className="simulator-controls">
@@ -471,10 +473,10 @@ const LINBusSimulator = () => {
           onClick={runSchedule}
           disabled={isRunning}
         >
-          {isRunning ? <><Icons.Loading size={14} /> Running Schedule...</> : <><Icons.Play size={14} /> Run Schedule</>}
+          {isRunning ? <><Icons.Loading size={14} /> {t('simulation.lin.runningSchedule')}</> : <><Icons.Play size={14} /> {t('simulation.lin.runSchedule')}</>}
         </button>
         <div className="speed-control" key={`speed-lin-${speed}`}>
-          <label>Speed:</label>
+          <label>{t('simulation.speed')}:</label>
           <input 
             type="range" 
             min="400" 
@@ -496,8 +498,8 @@ const LINBusSimulator = () => {
               <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
             </svg>
           </div>
-          <div className="master-name">{master.name}</div>
-          <div className="master-status">{master.currentTask || 'Idle'}</div>
+          <div className="master-name">{t(`simulation.${master.name}`)}</div>
+          <div className="master-status">{master.currentTask || t('simulation.idle')}</div>
         </motion.div>
 
         <div className="lin-bus-line">
@@ -531,7 +533,7 @@ const LINBusSimulator = () => {
               }}
             >
               <div className="slave-pid">PID: 0x{slave.pid.toString(16).toUpperCase()}</div>
-              <div className="slave-name">{slave.name}</div>
+              <div className="slave-name">{t(`simulation.${slave.name}`)}</div>
               <div className="slave-data">{slave.data}</div>
               {slave.response && (
                 <motion.div 
@@ -539,7 +541,7 @@ const LINBusSimulator = () => {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                 >
-                  ↗ Responding...
+                  ↗ {t('simulation.transmitting')}...
                 </motion.div>
               )}
             </motion.div>
@@ -548,7 +550,7 @@ const LINBusSimulator = () => {
       </div>
 
       <div className="schedule-display">
-        <h3>◉ Current Schedule</h3>
+        <h3>◉ {t('simulation.lin.currentSchedule')}</h3>
         <div className="schedule-slots">
           {schedule.map((slot, i) => (
             <div 
@@ -563,7 +565,7 @@ const LINBusSimulator = () => {
       </div>
 
       <div className="log-container">
-        <div className="log-header"><Icons.Clipboard size={16} /> Communication Log</div>
+        <div className="log-header"><Icons.Clipboard size={16} /> {t('simulation.lin.communicationLog')}</div>
         <div className="log-content">
           {logs.map((log, i) => (
             <div key={i} className={`log-entry ${log.type}`}>
@@ -575,12 +577,12 @@ const LINBusSimulator = () => {
       </div>
 
       <div className="education-panel">
-        <h3><Icons.Book size={18} /> How LIN Bus Works</h3>
+        <h3><Icons.Book size={18} /> {t('simulation.lin.howItWorks')}</h3>
         <ul>
-          <li><strong>Master-Slave:</strong> Single master controls all communication timing</li>
-          <li><strong>Schedule Table:</strong> Pre-defined sequence of PIDs to poll</li>
-          <li><strong>Frame Structure:</strong> SYNC (0x55) + PID + Data + Checksum</li>
-          <li><strong>Low Cost:</strong> Single wire, 20 kbit/s, for non-critical subsystems</li>
+          <li><strong>{t('simulation.master')}-{t('simulation.slave')}:</strong> {t('simulation.lin.masterSlave')}</li>
+          <li><strong>Schedule Table:</strong> {t('simulation.lin.scheduleTable')}</li>
+          <li><strong>Frame Structure:</strong> {t('simulation.lin.frameStructure')}</li>
+          <li><strong>Low Cost:</strong> {t('simulation.lin.lowCost')}</li>
         </ul>
       </div>
     </div>
@@ -589,6 +591,7 @@ const LINBusSimulator = () => {
 
 // ==================== FLEXRAY SIMULATOR ====================
 const FlexRaySimulator = () => {
+  const { t } = useLanguage();
   const [cycle, setCycle] = useState(0);
   const [currentSlot, setCurrentSlot] = useState(0);
   const [phase, setPhase] = useState('static'); // static, dynamic, symbol, nit
@@ -597,15 +600,15 @@ const FlexRaySimulator = () => {
   const [logs, setLogs] = useState([]);
   
   const staticSlots = [
-    { id: 1, node: 'Steering ECU', data: 'Angle: 15°', color: '#a855f7' },
-    { id: 2, node: 'Brake ECU', data: 'Pressure: 45 bar', color: '#22c55e' },
-    { id: 3, node: 'Suspension ECU', data: 'Height: Normal', color: '#3b82f6' },
-    { id: 4, node: 'Engine ECU', data: 'Torque: 250 Nm', color: '#ef4444' },
+    { id: 1, node: 'flexray.steeringEcu', data: 'Angle: 15°', color: '#a855f7' },
+    { id: 2, node: 'flexray.brakeEcu', data: 'Pressure: 45 bar', color: '#22c55e' },
+    { id: 3, node: 'flexray.suspensionEcu', data: 'Height: Normal', color: '#3b82f6' },
+    { id: 4, node: 'flexray.engineEcu', data: 'Torque: 250 Nm', color: '#ef4444' },
   ];
   
   const dynamicNodes = [
-    { id: 1, node: 'Diagnostic', data: 'Status OK', color: '#f97316', minislot: 1 },
-    { id: 2, node: 'Config Update', data: 'New params', color: '#06b6d4', minislot: 3 },
+    { id: 1, node: 'flexray.diagnostic', data: 'Status OK', color: '#f97316', minislot: 1 },
+    { id: 2, node: 'flexray.configUpdate', data: 'New params', color: '#06b6d4', minislot: 3 },
   ];
 
   const [activeStaticSlot, setActiveStaticSlot] = useState(null);
@@ -698,8 +701,8 @@ const FlexRaySimulator = () => {
   return (
     <div className="simulator-container flexray-simulator">
       <div className="simulator-header">
-        <h2><Icons.Bolt size={24} color="#a855f7" /> FlexRay Simulator</h2>
-        <p>Time-triggered communication with static and dynamic segments</p>
+        <h2><Icons.Bolt size={24} color="#a855f7" /> {t('simulation.flexray.title')}</h2>
+        <p>{t('simulation.flexray.subtitle')}</p>
       </div>
 
       <div className="simulator-controls">
@@ -708,10 +711,10 @@ const FlexRaySimulator = () => {
           onClick={runFlexRay}
           disabled={isRunning}
         >
-          {isRunning ? <><Icons.Loading size={14} /> Running...</> : <><Icons.Play size={14} /> Start FlexRay</>}
+          {isRunning ? <><Icons.Loading size={14} /> {t('simulation.flexray.running')}</> : <><Icons.Play size={14} /> {t('simulation.flexray.startFlexRay')}</>}
         </button>
         <div className="speed-control" key={`speed-flexray-${speed}`}>
-          <label>Speed:</label>
+          <label>{t('simulation.speed')}:</label>
           <input 
             type="range" 
             min="150" 
@@ -725,18 +728,18 @@ const FlexRaySimulator = () => {
 
       <div className="flexray-cycle-view">
         <div className="cycle-header">
-          <span className="cycle-number">Cycle: {cycle}</span>
+          <span className="cycle-number">{t('simulation.cycle')}: {cycle}</span>
           <span className={`phase-indicator ${phase}`}>
-            {phase === 'static' && <><Icons.Chart size={14} /> Static Segment</>}
-            {phase === 'dynamic' && <><Icons.Refresh size={14} /> Dynamic Segment</>}
-            {phase === 'symbol' && '▪ Symbol Window'}
-            {phase === 'nit' && '◇ NIT'}
+            {phase === 'static' && <><Icons.Chart size={14} /> {t('simulation.flexray.staticSegment')}</>}
+            {phase === 'dynamic' && <><Icons.Refresh size={14} /> {t('simulation.flexray.dynamicSegment')}</>}
+            {phase === 'symbol' && `▪ ${t('simulation.flexray.symbolWindow')}`}
+            {phase === 'nit' && `◇ ${t('simulation.flexray.nit')}`}
           </span>
         </div>
 
         <div className="cycle-timeline">
           <div className={`timeline-segment static ${phase === 'static' ? 'active' : ''}`}>
-            <span>Static Segment</span>
+            <span>{t('simulation.flexray.staticSegment')}</span>
             <div className="segment-slots">
               {staticSlots.map((slot, i) => (
                 <motion.div 
@@ -751,20 +754,20 @@ const FlexRaySimulator = () => {
             </div>
           </div>
           <div className={`timeline-segment dynamic ${phase === 'dynamic' ? 'active' : ''}`}>
-            <span>Dynamic</span>
+            <span>{t('simulation.flexray.dynamicSegment')}</span>
           </div>
           <div className={`timeline-segment symbol ${phase === 'symbol' ? 'active' : ''}`}>
-            <span>SW</span>
+            <span>{t('simulation.flexray.symbolWindow')}</span>
           </div>
           <div className={`timeline-segment nit ${phase === 'nit' ? 'active' : ''}`}>
-            <span>NIT</span>
+            <span>{t('simulation.flexray.nit')}</span>
           </div>
         </div>
       </div>
 
       <div className="flexray-nodes">
         <div className="static-nodes">
-          <h3>Static Slots (TDMA)</h3>
+          <h3>{t('simulation.flexray.staticSlots')}</h3>
           <div className="nodes-grid">
             {staticSlots.map(slot => (
               <motion.div
@@ -777,7 +780,7 @@ const FlexRaySimulator = () => {
                 }}
               >
                 <div className="node-slot">Slot {slot.id}</div>
-                <div className="node-name">{slot.node}</div>
+                <div className="node-name">{t(`simulation.${slot.node}`)}</div>
                 <div className="node-data">{slot.data}</div>
               </motion.div>
             ))}
@@ -785,7 +788,7 @@ const FlexRaySimulator = () => {
         </div>
 
         <div className="dynamic-nodes">
-          <h3>Dynamic Segment (FTDMA)</h3>
+          <h3>{t('simulation.flexray.dynamicSlots')}</h3>
           <div className="nodes-grid">
             {dynamicNodes.map(node => (
               <motion.div
@@ -798,7 +801,7 @@ const FlexRaySimulator = () => {
                 }}
               >
                 <div className="node-slot">Minislot {node.minislot}</div>
-                <div className="node-name">{node.node}</div>
+                <div className="node-name">{t(`simulation.${node.node}`)}</div>
                 <div className="node-data">{node.data}</div>
               </motion.div>
             ))}
@@ -807,7 +810,7 @@ const FlexRaySimulator = () => {
       </div>
 
       <div className="log-container">
-        <div className="log-header"><Icons.Clipboard size={16} /> FlexRay Log</div>
+        <div className="log-header"><Icons.Clipboard size={16} /> {t('simulation.flexray.flexrayLog')}</div>
         <div className="log-content">
           {logs.map((log, i) => (
             <div key={i} className={`log-entry ${log.type}`}>
@@ -819,12 +822,12 @@ const FlexRaySimulator = () => {
       </div>
 
       <div className="education-panel">
-        <h3><Icons.Book size={18} /> How FlexRay Works</h3>
+        <h3><Icons.Book size={18} /> {t('simulation.flexray.howItWorks')}</h3>
         <ul>
-          <li><strong>Dual Channel:</strong> Two independent channels (A & B) for redundancy</li>
-          <li><strong>TDMA Static:</strong> Guaranteed time slots for critical data</li>
-          <li><strong>FTDMA Dynamic:</strong> Flexible mini-slots for event-driven data</li>
-          <li><strong>10 Mbit/s:</strong> High bandwidth for safety-critical applications</li>
+          <li><strong>Dual Channel:</strong> {t('simulation.flexray.dualChannel')}</li>
+          <li><strong>TDMA Static:</strong> {t('simulation.flexray.tdmaStatic')}</li>
+          <li><strong>FTDMA Dynamic:</strong> {t('simulation.flexray.ftdmaDynamic')}</li>
+          <li><strong>10 Mbit/s:</strong> {t('simulation.flexray.highBandwidth')}</li>
         </ul>
       </div>
     </div>
@@ -833,18 +836,19 @@ const FlexRaySimulator = () => {
 
 // ==================== AUTOMOTIVE ETHERNET SIMULATOR ====================
 const EthernetSimulator = () => {
+  const { t } = useLanguage();
   const [switches, setSwitches] = useState([
-    { id: 1, name: 'Central Gateway', ports: 8, active: false, traffic: 0 },
-    { id: 2, name: 'Domain Switch A', ports: 4, active: false, traffic: 0 },
-    { id: 3, name: 'Domain Switch B', ports: 4, active: false, traffic: 0 },
+    { id: 1, name: 'ethernet.centralGateway', ports: 8, active: false, traffic: 0 },
+    { id: 2, name: 'ethernet.domainSwitchA', ports: 4, active: false, traffic: 0 },
+    { id: 3, name: 'ethernet.domainSwitchB', ports: 4, active: false, traffic: 0 },
   ]);
   
   const [endpoints, setEndpoints] = useState([
-    { id: 1, name: 'ADAS Camera', ip: '192.168.1.10', vlan: 10, bandwidth: '1 Gbps', status: 'idle', switchId: 2 },
-    { id: 2, name: 'Radar Sensor', ip: '192.168.1.11', vlan: 10, bandwidth: '100 Mbps', status: 'idle', switchId: 2 },
-    { id: 3, name: 'Infotainment', ip: '192.168.2.20', vlan: 20, bandwidth: '1 Gbps', status: 'idle', switchId: 3 },
-    { id: 4, name: 'Telematics', ip: '192.168.2.21', vlan: 20, bandwidth: '100 Mbps', status: 'idle', switchId: 3 },
-    { id: 5, name: 'OBD Port', ip: '192.168.3.30', vlan: 30, bandwidth: '100 Mbps', status: 'idle', switchId: 1 },
+    { id: 1, name: 'ethernet.adasCamera', ip: '192.168.1.10', vlan: 10, bandwidth: '1 Gbps', status: 'idle', switchId: 2 },
+    { id: 2, name: 'ethernet.radarSensor', ip: '192.168.1.11', vlan: 10, bandwidth: '100 Mbps', status: 'idle', switchId: 2 },
+    { id: 3, name: 'ethernet.infotainment', ip: '192.168.2.20', vlan: 20, bandwidth: '1 Gbps', status: 'idle', switchId: 3 },
+    { id: 4, name: 'ethernet.telematics', ip: '192.168.2.21', vlan: 20, bandwidth: '100 Mbps', status: 'idle', switchId: 3 },
+    { id: 5, name: 'ethernet.obdPort', ip: '192.168.3.30', vlan: 30, bandwidth: '100 Mbps', status: 'idle', switchId: 1 },
   ]);
   
   const [packets, setPackets] = useState([]);
@@ -963,8 +967,8 @@ const EthernetSimulator = () => {
   return (
     <div className="simulator-container ethernet-simulator">
       <div className="simulator-header">
-        <h2><Icons.Broadcast size={24} color="#3b82f6" /> Automotive Ethernet Simulator</h2>
-        <p>100BASE-T1 / 1000BASE-T1 switched network with VLANs</p>
+        <h2><Icons.Broadcast size={24} color="#3b82f6" /> {t('simulation.ethernet.title')}</h2>
+        <p>{t('simulation.ethernet.subtitle')}</p>
       </div>
 
       <div className="simulator-controls">
@@ -973,10 +977,10 @@ const EthernetSimulator = () => {
           onClick={runSimulation}
           disabled={isRunning}
         >
-          {isRunning ? <><Icons.Loading size={14} /> Simulating...</> : <><Icons.Play size={14} /> Start Simulation</>}
+          {isRunning ? <><Icons.Loading size={14} /> {t('simulation.ethernet.simulating')}</> : <><Icons.Play size={14} /> {t('simulation.ethernet.startSimulation')}</>}
         </button>
         <div className="speed-control" key={`speed-ethernet-${speed}`}>
-          <label>Speed:</label>
+          <label>{t('simulation.speed')}:</label>
           <input 
             type="range" 
             min="200" 
@@ -991,15 +995,15 @@ const EthernetSimulator = () => {
       <div className="ethernet-stats">
         <div className="stat-box sent">
           <span className="stat-value">{stats.sent}</span>
-          <span className="stat-label">Packets Sent</span>
+          <span className="stat-label">{t('simulation.ethernet.packetsSent')}</span>
         </div>
         <div className="stat-box received">
           <span className="stat-value">{stats.received}</span>
-          <span className="stat-label">Received</span>
+          <span className="stat-label">{t('simulation.ethernet.received')}</span>
         </div>
         <div className="stat-box dropped">
           <span className="stat-value">{stats.dropped}</span>
-          <span className="stat-label">Dropped</span>
+          <span className="stat-label">{t('simulation.ethernet.dropped')}</span>
         </div>
       </div>
 
@@ -1015,9 +1019,9 @@ const EthernetSimulator = () => {
               }}
             >
               <div className="switch-icon">⬡</div>
-              <div className="switch-name">{sw.name}</div>
-              <div className="switch-ports">{sw.ports} ports</div>
-              <div className="switch-traffic">Traffic: {sw.traffic}</div>
+              <div className="switch-name">{t(`simulation.${sw.name}`)}</div>
+              <div className="switch-ports">{sw.ports} {t('simulation.ethernet.ports')}</div>
+              <div className="switch-traffic">{t('simulation.ethernet.traffic')}: {sw.traffic}</div>
             </motion.div>
           ))}
         </div>
@@ -1036,11 +1040,11 @@ const EthernetSimulator = () => {
               <div className="endpoint-icon">
                 {ep.name.includes('Camera') && <Icons.Radar size={18} color="#06b6d4" />}
                 {ep.name.includes('Radar') && <Icons.Broadcast size={18} color="#f97316" />}
-                {ep.name.includes('Infotainment') && '▣'}
-                {ep.name.includes('Telematics') && '◈'}
-                {ep.name.includes('OBD') && '◉'}
+                {ep.name.includes('infotainment') && '▣'}
+                {ep.name.includes('telematics') && '◈'}
+                {ep.name.includes('obd') && '◉'}
               </div>
-              <div className="endpoint-name">{ep.name}</div>
+              <div className="endpoint-name">{t(`simulation.${ep.name}`)}</div>
               <div className="endpoint-ip">{ep.ip}</div>
               <div className="endpoint-vlan">VLAN {ep.vlan}</div>
               <div className="endpoint-bandwidth">{ep.bandwidth}</div>
@@ -1050,8 +1054,8 @@ const EthernetSimulator = () => {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                 >
-                  {ep.status === 'sending' && '↗ Sending...'}
-                  {ep.status === 'receiving' && '↙ Receiving...'}
+                  {ep.status === 'sending' && t('simulation.ethernet.sending')}
+                  {ep.status === 'receiving' && t('simulation.ethernet.receiving')}
                 </motion.div>
               )}
             </motion.div>
@@ -1060,7 +1064,7 @@ const EthernetSimulator = () => {
       </div>
 
       <div className="log-container">
-        <div className="log-header"><Icons.Clipboard size={16} /> Network Log</div>
+        <div className="log-header"><Icons.Clipboard size={16} /> {t('simulation.ethernet.networkLog')}</div>
         <div className="log-content">
           {logs.map((log, i) => (
             <div key={i} className={`log-entry ${log.type}`}>
@@ -1072,12 +1076,12 @@ const EthernetSimulator = () => {
       </div>
 
       <div className="education-panel">
-        <h3><Icons.Book size={18} /> How Automotive Ethernet Works</h3>
+        <h3><Icons.Book size={18} /> {t('simulation.ethernet.howItWorks')}</h3>
         <ul>
-          <li><strong>100BASE-T1:</strong> Single twisted pair, 100 Mbps, for most ECUs</li>
-          <li><strong>1000BASE-T1:</strong> Single twisted pair, 1 Gbps, for cameras/ADAS</li>
-          <li><strong>VLANs:</strong> Virtual networks for traffic isolation and security</li>
-          <li><strong>TSN:</strong> Time-Sensitive Networking for deterministic latency</li>
+          <li><strong>100BASE-T1:</strong> {t('simulation.ethernet.baseT1_100')}</li>
+          <li><strong>1000BASE-T1:</strong> {t('simulation.ethernet.baseT1_1000')}</li>
+          <li><strong>VLANs:</strong> {t('simulation.ethernet.vlans')}</li>
+          <li><strong>TSN:</strong> {t('simulation.ethernet.tsn')}</li>
         </ul>
       </div>
     </div>
