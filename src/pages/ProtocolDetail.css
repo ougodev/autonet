@@ -1,0 +1,706 @@
+/* ============================================
+   PROTOCOL DETAIL PAGE STYLES
+   ============================================ */
+
+.protocol-detail {
+  min-height: 100vh;
+}
+
+/* Hero Section */
+.protocol-hero {
+  position: relative;
+  padding: 4rem 0;
+  overflow: hidden;
+}
+
+.protocol-hero__bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+}
+
+.protocol-hero__glow {
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, var(--protocol-color) 0%, transparent 70%);
+  opacity: 0.1;
+  filter: blur(80px);
+}
+
+.protocol-hero__content {
+  position: relative;
+  z-index: 1;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #8892b0;
+  text-decoration: none;
+  font-size: 0.9rem;
+  margin-bottom: 2rem;
+  transition: color 0.3s ease;
+}
+
+.back-link:hover {
+  color: #64ffda;
+}
+
+.back-link svg {
+  width: 18px;
+  height: 18px;
+}
+
+.protocol-hero__header {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.protocol-hero__icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  font-weight: 700;
+  border: 3px solid;
+}
+
+.protocol-hero h1 {
+  font-size: 3rem;
+  margin-bottom: 0.25rem;
+}
+
+.protocol-hero__fullname {
+  color: var(--protocol-color);
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+.protocol-hero__description {
+  font-size: 1.15rem;
+  color: #8892b0;
+  line-height: 1.8;
+  max-width: 800px;
+  margin-bottom: 2rem;
+}
+
+.protocol-hero__meta {
+  display: flex;
+  gap: 3rem;
+  padding: 1.5rem;
+  background: rgba(17, 34, 64, 0.6);
+  border-radius: 12px;
+  border: 1px solid rgba(100, 255, 218, 0.1);
+}
+
+.meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.meta-label {
+  font-size: 0.8rem;
+  color: #8892b0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.meta-value {
+  font-size: 1rem;
+  color: #ccd6f6;
+  font-weight: 500;
+}
+
+/* Section Titles */
+.section-title {
+  font-size: 1.75rem;
+  margin-bottom: 2rem;
+  color: #ccd6f6;
+  position: relative;
+  padding-left: 1rem;
+}
+
+.section-title::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(to bottom, #64ffda, #00d4ff);
+  border-radius: 2px;
+}
+
+/* Characteristics Grid */
+.characteristics-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.char-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: rgba(17, 34, 64, 0.6);
+  border-radius: 12px;
+  border: 1px solid rgba(100, 255, 218, 0.1);
+  transition: all 0.3s ease;
+}
+
+.char-card:hover {
+  border-color: rgba(100, 255, 218, 0.2);
+  transform: translateY(-2px);
+}
+
+.char-icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(100, 255, 218, 0.1);
+  border-radius: 10px;
+}
+
+.char-icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.char-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.char-label {
+  font-size: 0.8rem;
+  color: #8892b0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.char-value {
+  font-size: 1.1rem;
+  color: #ccd6f6;
+  font-weight: 600;
+}
+
+/* Frame Section */
+.frame-section {
+  background: rgba(10, 25, 47, 0.5);
+}
+
+/* Arbitration Card */
+.arbitration-card {
+  background: rgba(17, 34, 64, 0.6);
+  border-radius: 16px;
+  padding: 2rem;
+  border: 1px solid rgba(100, 255, 218, 0.1);
+}
+
+.arbitration-header {
+  margin-bottom: 2rem;
+}
+
+.arbitration-header h3 {
+  font-size: 1.25rem;
+  color: #64ffda;
+  margin-bottom: 0.75rem;
+}
+
+.arbitration-header p {
+  color: #8892b0;
+  line-height: 1.7;
+}
+
+.arbitration-rules {
+  margin-bottom: 2rem;
+}
+
+.arbitration-rules h4 {
+  font-size: 1rem;
+  color: #ccd6f6;
+  margin-bottom: 1rem;
+}
+
+.arbitration-rules ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.arbitration-rules li {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  background: rgba(10, 25, 47, 0.5);
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+  color: #8892b0;
+}
+
+.rule-number {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(100, 255, 218, 0.1);
+  color: #64ffda;
+  border-radius: 50%;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.arbitration-example h4 {
+  font-size: 1rem;
+  color: #ccd6f6;
+  margin-bottom: 1rem;
+}
+
+.example-nodes {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.example-node {
+  padding: 1rem;
+  background: rgba(10, 25, 47, 0.8);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border: 2px solid transparent;
+}
+
+.example-node.winner {
+  border-color: #06d6a0;
+}
+
+.example-node.loser {
+  border-color: #ef476f;
+  opacity: 0.7;
+}
+
+.node-name {
+  font-weight: 600;
+  color: #ccd6f6;
+}
+
+.node-id, .node-binary {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.85rem;
+  color: #8892b0;
+}
+
+.node-status {
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+}
+
+.node-status.wins {
+  color: #06d6a0;
+}
+
+.node-status.loses {
+  color: #ef476f;
+}
+
+.example-explanation {
+  padding: 1rem;
+  background: rgba(100, 255, 218, 0.05);
+  border-left: 3px solid #64ffda;
+  border-radius: 0 8px 8px 0;
+  color: #8892b0;
+  font-style: italic;
+}
+
+/* Physical Layer Card */
+.physical-layer-card {
+  background: rgba(17, 34, 64, 0.6);
+  border-radius: 16px;
+  padding: 2rem;
+  border: 1px solid rgba(100, 255, 218, 0.1);
+}
+
+.physical-description {
+  color: #8892b0;
+  line-height: 1.7;
+  margin-bottom: 2rem;
+}
+
+.voltage-diagram h4,
+.termination-info h4 {
+  font-size: 1rem;
+  color: #ccd6f6;
+  margin-bottom: 1rem;
+}
+
+.voltage-levels {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.voltage-state {
+  padding: 1.5rem;
+  background: rgba(10, 25, 47, 0.8);
+  border-radius: 12px;
+}
+
+.voltage-state.recessive {
+  border-left: 4px solid #ffd166;
+}
+
+.voltage-state.dominant {
+  border-left: 4px solid #06d6a0;
+}
+
+.state-name {
+  display: block;
+  font-weight: 600;
+  color: #ccd6f6;
+  margin-bottom: 0.75rem;
+}
+
+.voltage-values {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.voltage-values span {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.9rem;
+  color: #8892b0;
+}
+
+.termination-info p {
+  padding: 1rem;
+  background: rgba(10, 25, 47, 0.5);
+  border-radius: 8px;
+  color: #8892b0;
+  font-family: 'Fira Code', monospace;
+}
+
+/* Error Section */
+.error-section {
+  background: rgba(10, 25, 47, 0.5);
+}
+
+.error-mechanisms {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.error-card {
+  display: flex;
+  gap: 1rem;
+  padding: 1.25rem;
+  background: rgba(17, 34, 64, 0.6);
+  border-radius: 12px;
+  border: 1px solid rgba(100, 255, 218, 0.1);
+}
+
+.error-number {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.error-content h4 {
+  font-size: 1rem;
+  color: #ccd6f6;
+  margin-bottom: 0.5rem;
+}
+
+.error-content p {
+  font-size: 0.9rem;
+  color: #8892b0;
+  margin: 0;
+}
+
+.error-counters {
+  background: rgba(17, 34, 64, 0.6);
+  border-radius: 16px;
+  padding: 2rem;
+  border: 1px solid rgba(100, 255, 218, 0.1);
+}
+
+.error-counters h4,
+.error-counters h5 {
+  color: #ccd6f6;
+  margin-bottom: 1rem;
+}
+
+.counters-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.counter {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: rgba(10, 25, 47, 0.5);
+  border-radius: 8px;
+}
+
+.counter-abbr {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #64ffda;
+  font-family: 'Fira Code', monospace;
+}
+
+.counter-name {
+  color: #8892b0;
+  font-size: 0.9rem;
+}
+
+.states-list {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.error-state-badge {
+  padding: 0.5rem 1rem;
+  background: rgba(100, 255, 218, 0.1);
+  border-radius: 6px;
+  color: #64ffda;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+/* Applications Grid */
+.applications-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.application-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  background: rgba(17, 34, 64, 0.6);
+  border-radius: 8px;
+  border-left: 3px solid;
+}
+
+.app-number {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.app-name {
+  color: #ccd6f6;
+}
+
+/* Pros and Cons */
+.pros-cons-section {
+  background: rgba(10, 25, 47, 0.5);
+}
+
+.pros-cons-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+
+.pros-card,
+.cons-card {
+  padding: 2rem;
+  border-radius: 16px;
+  border: 1px solid;
+}
+
+.pros-card {
+  background: rgba(6, 214, 160, 0.05);
+  border-color: rgba(6, 214, 160, 0.2);
+}
+
+.cons-card {
+  background: rgba(239, 71, 111, 0.05);
+  border-color: rgba(239, 71, 111, 0.2);
+}
+
+.pros-card h3,
+.cons-card h3 {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.pros-card h3 {
+  color: #06d6a0;
+}
+
+.cons-card h3 {
+  color: #ef476f;
+}
+
+.pros-card h3 svg,
+.cons-card h3 svg {
+  width: 24px;
+  height: 24px;
+}
+
+.pros-card ul,
+.cons-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.pros-card li,
+.cons-card li {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid rgba(100, 255, 218, 0.05);
+  color: #8892b0;
+}
+
+.pros-card li:last-child,
+.cons-card li:last-child {
+  border-bottom: none;
+}
+
+/* Navigation Section */
+.nav-section {
+  text-align: center;
+}
+
+.nav-section h3 {
+  margin-bottom: 2rem;
+  color: #ccd6f6;
+}
+
+.protocol-nav-grid {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.protocol-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1.25rem;
+  background: rgba(17, 34, 64, 0.6);
+  border-radius: 10px;
+  border: 2px solid;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.protocol-nav-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.nav-icon {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  font-weight: 700;
+}
+
+.nav-name {
+  font-weight: 500;
+  color: #ccd6f6;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .characteristics-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .error-mechanisms {
+    grid-template-columns: 1fr;
+  }
+
+  .applications-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .protocol-hero h1 {
+    font-size: 2rem;
+  }
+
+  .protocol-hero__icon {
+    width: 60px;
+    height: 60px;
+    font-size: 1.75rem;
+  }
+
+  .protocol-hero__meta {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .characteristics-grid,
+  .applications-grid,
+  .pros-cons-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .example-nodes {
+    grid-template-columns: 1fr;
+  }
+
+  .voltage-levels {
+    grid-template-columns: 1fr;
+  }
+
+  .counters-grid {
+    grid-template-columns: 1fr;
+  }
+}

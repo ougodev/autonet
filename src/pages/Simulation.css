@@ -1,0 +1,1108 @@
+/* ==================== SIMULATION PAGE STYLES ==================== */
+
+.simulation-page {
+  min-height: 100vh;
+  padding: 2rem;
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #0f0f23 100%);
+}
+
+/* Hero Section */
+.simulation-hero {
+  text-align: center;
+  padding: 3rem 2rem;
+  margin-bottom: 2rem;
+  background: linear-gradient(135deg, rgba(20, 20, 40, 0.8), rgba(30, 30, 50, 0.6));
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.simulation-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #ef4444, #f97316, #22c55e, #a855f7, #3b82f6);
+}
+
+.simulation-hero h1 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2.8rem;
+  color: #fff;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 0 30px rgba(239, 68, 68, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.simulation-hero p {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.3rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Simulator Tabs */
+.simulator-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.simulator-tab {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 1.5rem;
+  background: rgba(20, 20, 40, 0.8);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  color: #fff;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.simulator-tab:hover {
+  border-color: var(--tab-color);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+.simulator-tab.active {
+  background: var(--tab-color);
+  border-color: var(--tab-color);
+  box-shadow: 0 0 30px var(--tab-color);
+}
+
+.tab-icon {
+  font-size: 1.5rem;
+}
+
+/* Simulator Container */
+.simulator-container {
+  background: linear-gradient(135deg, rgba(20, 20, 40, 0.9), rgba(15, 15, 35, 0.95));
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+.simulator-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.simulator-header h2 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.8rem;
+  color: #fff;
+  margin-bottom: 0.5rem;
+}
+
+.simulator-header p {
+  color: rgba(255, 255, 255, 0.6);
+  font-family: 'Rajdhani', sans-serif;
+}
+
+/* Controls */
+.simulator-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.sim-button {
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  border: none;
+  border-radius: 10px;
+  color: #fff;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
+}
+
+.sim-button:hover:not(.disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(239, 68, 68, 0.6);
+}
+
+.sim-button.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.speed-control {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: #fff;
+  font-family: 'Rajdhani', sans-serif;
+}
+
+.speed-control input[type="range"] {
+  width: 150px;
+  accent-color: #ef4444;
+}
+
+/* ==================== CAN SIMULATOR ==================== */
+
+.can-bus-visual {
+  margin-bottom: 2rem;
+}
+
+.bus-line {
+  background: linear-gradient(90deg, rgba(239, 68, 68, 0.2), rgba(239, 68, 68, 0.4), rgba(239, 68, 68, 0.2));
+  border: 2px solid #ef4444;
+  border-radius: 10px;
+  padding: 1rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.bus-state {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.2rem;
+  color: #fff;
+  margin-bottom: 0.5rem;
+}
+
+.bus-state.idle {
+  color: #888;
+}
+
+.bus-state.arbitrating {
+  color: #f97316;
+  animation: pulse 1s infinite;
+}
+
+.bus-state.transmitting {
+  color: #22c55e;
+}
+
+.arbitration-bits {
+  display: flex;
+  justify-content: center;
+  gap: 0.25rem;
+  flex-wrap: wrap;
+}
+
+.bit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
+  font-family: 'Share Tech Mono', monospace;
+  font-weight: bold;
+}
+
+.bit.dominant {
+  background: #22c55e;
+  color: #000;
+}
+
+.bit.recessive {
+  background: #ef4444;
+  color: #fff;
+}
+
+.nodes-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.can-node {
+  background: linear-gradient(135deg, rgba(30, 30, 50, 0.9), rgba(20, 20, 40, 0.9));
+  border: 2px solid var(--node-color);
+  border-radius: 15px;
+  padding: 1.5rem;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.can-node.competing {
+  box-shadow: 0 0 20px var(--node-color);
+  animation: nodePulse 1s infinite;
+}
+
+.can-node.transmitting {
+  box-shadow: 0 0 30px #22c55e;
+  border-color: #22c55e;
+}
+
+.can-node.lost {
+  opacity: 0.5;
+  border-color: #666;
+}
+
+.can-node.winner {
+  box-shadow: 0 0 40px gold;
+  border-color: gold;
+}
+
+.node-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.node-name {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1rem;
+  color: var(--node-color);
+}
+
+.node-id {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.9rem;
+  color: #888;
+}
+
+.node-binary {
+  display: flex;
+  gap: 3px;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.binary-bit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 3px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.8rem;
+  background: rgba(255, 255, 255, 0.1);
+  color: #888;
+}
+
+.binary-bit.dominant {
+  background: #22c55e;
+  color: #000;
+}
+
+.binary-bit.recessive {
+  background: #ef4444;
+  color: #fff;
+}
+
+.node-status {
+  font-family: 'Rajdhani', sans-serif;
+  color: #fff;
+  font-size: 0.9rem;
+}
+
+.winner-badge {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background: linear-gradient(135deg, gold, #fbbf24);
+  color: #000;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.8rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.4);
+}
+
+.message-display {
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(34, 197, 94, 0.1));
+  border: 2px solid #22c55e;
+  border-radius: 15px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.message-header {
+  font-family: 'Orbitron', sans-serif;
+  color: #22c55e;
+  margin-bottom: 0.5rem;
+}
+
+.message-content {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 1.5rem;
+}
+
+.cursor {
+  animation: blink 0.5s infinite;
+}
+
+/* ==================== LIN SIMULATOR ==================== */
+
+.lin-topology {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.lin-master {
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.3), rgba(34, 197, 94, 0.1));
+  border: 2px solid #22c55e;
+  border-radius: 15px;
+  padding: 1.5rem;
+  text-align: center;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.lin-master.sending {
+  box-shadow: 0 0 30px #22c55e;
+  animation: pulse 1s infinite;
+}
+
+.master-icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.master-name {
+  font-family: 'Orbitron', sans-serif;
+  color: #22c55e;
+  margin-bottom: 0.5rem;
+}
+
+.master-status {
+  font-family: 'Rajdhani', sans-serif;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.lin-bus-line {
+  height: 60px;
+  background: linear-gradient(90deg, rgba(34, 197, 94, 0.1), rgba(34, 197, 94, 0.3), rgba(34, 197, 94, 0.1));
+  border: 2px solid #22c55e;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  overflow: hidden;
+  padding: 0 1rem;
+}
+
+.bus-packet {
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+.bus-packet.sync {
+  background: #f97316;
+  color: #000;
+}
+
+.bus-packet.pid {
+  background: #a855f7;
+  color: #fff;
+}
+
+.bus-packet.response {
+  background: #22c55e;
+  color: #000;
+}
+
+.bus-packet.checksum {
+  background: #3b82f6;
+  color: #fff;
+}
+
+.lin-slaves {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.lin-slave {
+  background: linear-gradient(135deg, rgba(30, 30, 50, 0.9), rgba(20, 20, 40, 0.9));
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: 1rem;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.lin-slave.responding {
+  border-color: #22c55e;
+  box-shadow: 0 0 20px #22c55e;
+}
+
+.slave-pid {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.8rem;
+  color: #a855f7;
+  margin-bottom: 0.5rem;
+}
+
+.slave-name {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.9rem;
+  color: #fff;
+  margin-bottom: 0.5rem;
+}
+
+.slave-data {
+  font-family: 'Rajdhani', sans-serif;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.85rem;
+}
+
+.slave-response {
+  margin-top: 0.5rem;
+  color: #22c55e;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.8rem;
+}
+
+.schedule-display {
+  margin-bottom: 2rem;
+}
+
+.schedule-display h3 {
+  font-family: 'Orbitron', sans-serif;
+  color: #fff;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.schedule-slots {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.schedule-slot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  background: rgba(30, 30, 50, 0.8);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.schedule-slot.active {
+  border-color: #22c55e;
+  background: rgba(34, 197, 94, 0.2);
+  box-shadow: 0 0 15px #22c55e;
+}
+
+.schedule-slot.completed {
+  border-color: #3b82f6;
+  opacity: 0.6;
+}
+
+.slot-number {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.8rem;
+  color: #888;
+}
+
+.slot-pid {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.9rem;
+  color: #fff;
+}
+
+/* ==================== FLEXRAY SIMULATOR ==================== */
+
+.flexray-cycle-view {
+  margin-bottom: 2rem;
+}
+
+.cycle-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  background: rgba(30, 30, 50, 0.8);
+  border-radius: 10px;
+}
+
+.cycle-number {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.2rem;
+  color: #a855f7;
+}
+
+.phase-indicator {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  color: #fff;
+}
+
+.phase-indicator.static {
+  background: rgba(168, 85, 247, 0.3);
+  border: 1px solid #a855f7;
+}
+
+.phase-indicator.dynamic {
+  background: rgba(249, 115, 22, 0.3);
+  border: 1px solid #f97316;
+}
+
+.phase-indicator.symbol {
+  background: rgba(59, 130, 246, 0.3);
+  border: 1px solid #3b82f6;
+}
+
+.phase-indicator.nit {
+  background: rgba(100, 100, 100, 0.3);
+  border: 1px solid #666;
+}
+
+.cycle-timeline {
+  display: flex;
+  height: 60px;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.timeline-segment {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.timeline-segment span {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.timeline-segment.static {
+  flex: 4;
+  background: rgba(168, 85, 247, 0.2);
+}
+
+.timeline-segment.static.active {
+  background: rgba(168, 85, 247, 0.5);
+  box-shadow: inset 0 0 20px rgba(168, 85, 247, 0.5);
+}
+
+.timeline-segment.dynamic {
+  flex: 2;
+  background: rgba(249, 115, 22, 0.2);
+}
+
+.timeline-segment.dynamic.active {
+  background: rgba(249, 115, 22, 0.5);
+  box-shadow: inset 0 0 20px rgba(249, 115, 22, 0.5);
+}
+
+.timeline-segment.symbol {
+  flex: 1;
+  background: rgba(59, 130, 246, 0.2);
+}
+
+.timeline-segment.symbol.active {
+  background: rgba(59, 130, 246, 0.5);
+}
+
+.timeline-segment.nit {
+  flex: 1;
+  background: rgba(100, 100, 100, 0.2);
+}
+
+.timeline-segment.nit.active {
+  background: rgba(100, 100, 100, 0.5);
+}
+
+.segment-slots {
+  display: flex;
+  gap: 4px;
+  margin-top: 4px;
+}
+
+.timeline-slot {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.7rem;
+  color: #fff;
+  transition: all 0.3s ease;
+}
+
+.timeline-slot.active {
+  transform: scale(1.2);
+}
+
+.flexray-nodes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+@media (max-width: 768px) {
+  .flexray-nodes {
+    grid-template-columns: 1fr;
+  }
+}
+
+.static-nodes h3,
+.dynamic-nodes h3 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1rem;
+  color: #fff;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.nodes-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.flexray-node {
+  background: linear-gradient(135deg, rgba(30, 30, 50, 0.9), rgba(20, 20, 40, 0.9));
+  border: 2px solid var(--node-color);
+  border-radius: 12px;
+  padding: 1rem;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.flexray-node.active {
+  border-color: var(--node-color);
+}
+
+.flexray-node.dynamic {
+  border-style: dashed;
+}
+
+.node-slot {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--node-color);
+  margin-bottom: 0.5rem;
+}
+
+/* ==================== ETHERNET SIMULATOR ==================== */
+
+.ethernet-stats {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.stat-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: rgba(30, 30, 50, 0.8);
+  border-radius: 12px;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.stat-box.sent {
+  border-color: #22c55e;
+}
+
+.stat-box.received {
+  border-color: #3b82f6;
+}
+
+.stat-box.dropped {
+  border-color: #ef4444;
+}
+
+.stat-value {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2rem;
+  color: #fff;
+}
+
+.stat-label {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.ethernet-topology {
+  margin-bottom: 2rem;
+}
+
+.switches-layer {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.ethernet-switch {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.3), rgba(59, 130, 246, 0.1));
+  border: 2px solid #3b82f6;
+  border-radius: 15px;
+  padding: 1.5rem;
+  text-align: center;
+  min-width: 150px;
+  transition: all 0.3s ease;
+}
+
+.ethernet-switch.active {
+  box-shadow: 0 0 30px #3b82f6;
+  animation: pulse 0.5s;
+}
+
+.switch-icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.switch-name {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.9rem;
+  color: #3b82f6;
+  margin-bottom: 0.25rem;
+}
+
+.switch-ports,
+.switch-traffic {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.endpoints-layer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+}
+
+.ethernet-endpoint {
+  background: linear-gradient(135deg, rgba(30, 30, 50, 0.9), rgba(20, 20, 40, 0.9));
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: 1rem;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.ethernet-endpoint.sending {
+  border-color: #22c55e;
+}
+
+.ethernet-endpoint.receiving {
+  border-color: #3b82f6;
+}
+
+.endpoint-icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.endpoint-name {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.85rem;
+  color: #fff;
+  margin-bottom: 0.25rem;
+}
+
+.endpoint-ip {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.75rem;
+  color: #22c55e;
+}
+
+.endpoint-vlan {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.75rem;
+  color: #a855f7;
+}
+
+.endpoint-bandwidth {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.endpoint-status {
+  margin-top: 0.5rem;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 10px;
+}
+
+.endpoint-status.sending {
+  background: rgba(34, 197, 94, 0.2);
+  color: #22c55e;
+}
+
+.endpoint-status.receiving {
+  background: rgba(59, 130, 246, 0.2);
+  color: #3b82f6;
+}
+
+/* ==================== LOG CONTAINER ==================== */
+
+.log-container {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  overflow: hidden;
+}
+
+.log-header {
+  background: rgba(30, 30, 50, 0.8);
+  padding: 0.75rem 1rem;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.9rem;
+  color: #fff;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.log-content {
+  padding: 1rem;
+  max-height: 250px;
+  overflow-y: auto;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.85rem;
+}
+
+.log-entry {
+  padding: 0.25rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.log-time {
+  color: #666;
+  margin-right: 0.5rem;
+}
+
+.log-entry.start .log-message {
+  color: #22c55e;
+}
+
+.log-entry.success .log-message {
+  color: #22c55e;
+}
+
+.log-entry.error .log-message {
+  color: #ef4444;
+}
+
+.log-entry.warning .log-message {
+  color: #f97316;
+}
+
+.log-entry.info .log-message {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.log-entry.master .log-message {
+  color: #a855f7;
+}
+
+.log-entry.slave .log-message {
+  color: #22c55e;
+}
+
+.log-entry.cycle .log-message {
+  color: #3b82f6;
+}
+
+.log-entry.static .log-message {
+  color: #a855f7;
+}
+
+.log-entry.dynamic .log-message {
+  color: #f97316;
+}
+
+.log-entry.packet .log-message {
+  color: #06b6d4;
+}
+
+.log-entry.route .log-message {
+  color: #3b82f6;
+}
+
+/* ==================== EDUCATION PANEL ==================== */
+
+.education-panel {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(168, 85, 247, 0.1));
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  border-radius: 15px;
+  padding: 1.5rem;
+}
+
+.education-panel h3 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1rem;
+  color: #3b82f6;
+  margin-bottom: 1rem;
+}
+
+.education-panel ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.education-panel li {
+  padding: 0.5rem 0;
+  padding-left: 1.5rem;
+  position: relative;
+  font-family: 'Rajdhani', sans-serif;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.95rem;
+}
+
+.education-panel li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: #3b82f6;
+}
+
+.education-panel li strong {
+  color: #fff;
+}
+
+/* ==================== ANIMATIONS ==================== */
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes nodePulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+}
+
+@keyframes blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+/* ==================== RESPONSIVE ==================== */
+
+@media (max-width: 768px) {
+  .simulation-page {
+    padding: 1rem;
+  }
+  
+  .simulation-hero h1 {
+    font-size: 2rem;
+    flex-direction: column;
+  }
+  
+  .simulation-hero p {
+    font-size: 1.1rem;
+  }
+  
+  .simulator-tabs {
+    gap: 0.5rem;
+  }
+  
+  .simulator-tab {
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+  }
+  
+  .simulator-controls {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .nodes-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .ethernet-stats {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .nodes-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .simulator-header h2 {
+    font-size: 1.5rem;
+  }
+  
+  .simulator-header p {
+    font-size: 1rem;
+  }
+}
+
+/* Scrollbar Styling */
+.log-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.log-content::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.log-content::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+}
+
+.log-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
