@@ -147,20 +147,62 @@
 .footer__bottom {
   padding-top: 2rem;
   border-top: 1px solid rgba(100, 255, 218, 0.1);
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
 }
 
-.footer__bottom p {
+.footer__developer {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.footer__developer .developer-photo {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #64ffda;
+  box-shadow: 0 0 10px rgba(100, 255, 218, 0.3);
+}
+
+.footer__developer .developer-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.3rem;
+}
+
+.footer__developer .developer-credit {
+  color: #ccd6f6;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.footer__developer .developer-links {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.footer__developer .social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #8892b0;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.footer__developer .social-link:hover {
+  color: #64ffda;
+  transform: translateY(-2px);
+}
+
+.footer__copyright {
   color: #8892b0;
   font-size: 0.85rem;
   margin: 0;
-}
-
-.footer__credits {
-  margin-top: 0.5rem;
-  color: #64ffda;
-  font-size: 0.9rem;
-  font-weight: 600;
 }
 
 /* Educational Section */
