@@ -39,8 +39,8 @@
 }
 
 .logo-image {
-  width: 90px;
-  height: 90px;
+  width: 110px;
+  height: 110px;
   border-radius: 12px;
   object-fit: contain;
   transition: transform 0.3s ease;
@@ -224,8 +224,8 @@
   }
   
   .logo-image {
-    width: 65px;
-    height: 65px;
+    width: 75px;
+    height: 75px;
   }
   
   .header__controls {
@@ -244,8 +244,8 @@
 
 @media (max-width: 480px) {
   .logo-image {
-    width: 45px;
-    height: 45px;
+    width: 55px;
+    height: 55px;
   }
   
   .header__controls {

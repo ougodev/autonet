@@ -8,10 +8,51 @@ import './ProtocolDetail.css';
 
 const ProtocolDetail = () => {
   const { protocolId } = useParams();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   
   // Find the protocol by id
   const protocol = Object.values(protocols).find(p => p.id === protocolId);
+  
+  // Get protocol key for translations (handle special cases like 'can' -> 'CAN')
+  const getProtocolKey = () => {
+    if (!protocol) return null;
+    const mapping = {
+      'can': 'CAN',
+      'canfd': 'CANFD',
+      'lin': 'LIN',
+      'flexray': 'FlexRay',
+      'most': 'MOST',
+      'ethernet': 'Ethernet'
+    };
+    return mapping[protocolId] || protocolId.toUpperCase();
+  };
+  
+  const protocolKey = getProtocolKey();
+  
+  // Helper to get translated data or fallback to original
+  const getTranslatedData = (field) => {
+    const translatedData = t(`protocolsDetailData.${protocolKey}.${field}`);
+    // If translation returns the key itself, use original data
+    if (typeof translatedData === 'string' && translatedData.includes('protocolsDetailData')) {
+      return protocol?.[field];
+    }
+    return translatedData;
+  };
+  
+  // Get nested translated data
+  const getNestedTranslatedData = (path) => {
+    const translatedData = t(`protocolsDetailData.${protocolKey}.${path}`);
+    if (typeof translatedData === 'string' && translatedData.includes('protocolsDetailData')) {
+      // Navigate to the nested property in original protocol data
+      const parts = path.split('.');
+      let result = protocol;
+      for (const part of parts) {
+        result = result?.[part];
+      }
+      return result;
+    }
+    return translatedData;
+  };
   
   if (!protocol) {
     return (
@@ -69,7 +110,7 @@ const ProtocolDetail = () => {
               </div>
             </div>
 
-            <p className="protocol-hero__description">{protocol.description}</p>
+            <p className="protocol-hero__description">{getTranslatedData('description') || protocol.description}</p>
 
             <div className="protocol-hero__meta">
               <div className="meta-item">
@@ -136,7 +177,7 @@ const ProtocolDetail = () => {
                 </div>
                 <div className="char-content">
                   <span className="char-label">{t('protocolDetail.topology')}</span>
-                  <span className="char-value">{protocol.characteristics.topology}</span>
+                  <span className="char-value">{getTranslatedData('topology') || protocol.characteristics.topology}</span>
                 </div>
               </div>
 
@@ -149,7 +190,7 @@ const ProtocolDetail = () => {
                 </div>
                 <div className="char-content">
                   <span className="char-label">{t('protocolDetail.physicalMedium')}</span>
-                  <span className="char-value">{protocol.characteristics.medium}</span>
+                  <span className="char-value">{getTranslatedData('medium') || protocol.characteristics.medium}</span>
                 </div>
               </div>
 
@@ -164,7 +205,7 @@ const ProtocolDetail = () => {
                 </div>
                 <div className="char-content">
                   <span className="char-label">{t('protocolDetail.nodeCount')}</span>
-                  <span className="char-value">{protocol.characteristics.maxNodes || 'Variable'}</span>
+                  <span className="char-value">{getTranslatedData('maxNodes') || protocol.characteristics.maxNodes || 'Variable'}</span>
                 </div>
               </div>
 
@@ -218,14 +259,14 @@ const ProtocolDetail = () => {
               
               <div className="arbitration-card">
                 <div className="arbitration-header">
-                  <h3>{protocol.arbitration.method}</h3>
-                  <p>{protocol.arbitration.description}</p>
+                  <h3>{getNestedTranslatedData('arbitration.method') || protocol.arbitration.method}</h3>
+                  <p>{getNestedTranslatedData('arbitration.description') || protocol.arbitration.description}</p>
                 </div>
 
                 <div className="arbitration-rules">
                   <h4>{t('protocolDetail.arbitrationRules')}</h4>
                   <ul>
-                    {protocol.arbitration.rules.map((rule, index) => (
+                    {(getNestedTranslatedData('arbitration.rules') || protocol.arbitration.rules).map((rule, index) => (
                       <li key={index}>
                         <span className="rule-number">{index + 1}</span>
                         {rule}
@@ -255,7 +296,7 @@ const ProtocolDetail = () => {
                         ))}
                     </div>
                     <p className="example-explanation">
-                      {protocol.arbitration.example.explanation}
+                      {getNestedTranslatedData('arbitration.explanation') || protocol.arbitration.example.explanation}
                     </p>
                   </div>
                 )}
@@ -277,7 +318,7 @@ const ProtocolDetail = () => {
               <h2 className="section-title">{t('protocolDetail.physicalLayer')}</h2>
               
               <div className="physical-layer-card">
-                <p className="physical-description">{protocol.physicalLayer.description}</p>
+                <p className="physical-description">{getNestedTranslatedData('physicalLayer.description') || protocol.physicalLayer.description}</p>
                 
                 <div className="voltage-diagram">
                   <h4>{t('protocolDetail.voltageLevels')}</h4>
@@ -303,7 +344,7 @@ const ProtocolDetail = () => {
 
                 <div className="termination-info">
                   <h4>{t('protocolDetail.termination')}</h4>
-                  <p>{protocol.physicalLayer.termination}</p>
+                  <p>{getNestedTranslatedData('physicalLayer.termination') || protocol.physicalLayer.termination}</p>
                 </div>
               </div>
             </motion.div>
@@ -323,7 +364,7 @@ const ProtocolDetail = () => {
               <h2 className="section-title">{t('protocolDetail.errorHandling')}</h2>
               
               <div className="error-mechanisms">
-                {protocol.errorHandling.mechanisms.map((mechanism, index) => (
+                {(getNestedTranslatedData('errorHandling.mechanisms') || protocol.errorHandling.mechanisms).map((mechanism, index) => (
                   <div key={index} className="error-card">
                     <div 
                       className="error-number"
@@ -345,11 +386,11 @@ const ProtocolDetail = () => {
                   <div className="counters-grid">
                     <div className="counter">
                       <span className="counter-abbr">TEC</span>
-                      <span className="counter-name">{protocol.errorHandling.errorCounters.TEC}</span>
+                      <span className="counter-name">{getNestedTranslatedData('errorHandling.TEC') || protocol.errorHandling.errorCounters.TEC}</span>
                     </div>
                     <div className="counter">
                       <span className="counter-abbr">REC</span>
-                      <span className="counter-name">{protocol.errorHandling.errorCounters.REC}</span>
+                      <span className="counter-name">{getNestedTranslatedData('errorHandling.REC') || protocol.errorHandling.errorCounters.REC}</span>
                     </div>
                   </div>
                   <div className="error-states">
@@ -378,7 +419,7 @@ const ProtocolDetail = () => {
             <h2 className="section-title">{t('protocolDetail.applications')}</h2>
             
             <div className="applications-grid">
-              {protocol.applications.map((app, index) => (
+              {(getTranslatedData('applications') || protocol.applications).map((app, index) => (
                 <div 
                   key={index} 
                   className="application-item"
@@ -415,7 +456,7 @@ const ProtocolDetail = () => {
                   {t('protocolDetail.advantages')}
                 </h3>
                 <ul>
-                  {protocol.advantages.map((adv, index) => (
+                  {(getTranslatedData('advantages') || protocol.advantages).map((adv, index) => (
                     <li key={index}>{adv}</li>
                   ))}
                 </ul>
@@ -430,7 +471,7 @@ const ProtocolDetail = () => {
                   {t('protocolDetail.disadvantages')}
                 </h3>
                 <ul>
-                  {protocol.disadvantages.map((dis, index) => (
+                  {(getTranslatedData('disadvantages') || protocol.disadvantages).map((dis, index) => (
                     <li key={index}>{dis}</li>
                   ))}
                 </ul>

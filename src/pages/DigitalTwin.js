@@ -9,7 +9,7 @@ import {
 } from '../components/common/Icons';
 
 const DigitalTwin = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [activeNode, setActiveNode] = useState(null);
   const [activeMessages, setActiveMessages] = useState([]);
   const [viewMode, setViewMode] = useState('vehicle');
@@ -32,102 +32,102 @@ const DigitalTwin = () => {
   const [isSimulating, setIsSimulating] = useState(false);
   const simulationRef = useRef(null);
 
-  // Complete vehicle network topology
+  // Complete vehicle network topology with translated content
   const networkNodes = {
     gateway: {
       id: 'gateway',
-      name: 'Central Gateway',
+      name: t('digitalTwinNetwork.centralGateway'),
       type: 'gateway',
       protocol: 'Multi-Protocol',
       x: 50,
       y: 45,
-      description: 'Point central de routage entre tous les domaines - Gère la sécurité et le filtrage des messages',
+      description: t('digitalTwinNetwork.gatewayDesc'),
       bandwidth: '1 Gbit/s',
       connections: ['powertrain', 'chassis', 'body', 'infotainment', 'adas']
     },
     powertrain: {
       id: 'powertrain',
-      name: 'Powertrain Domain',
+      name: t('digitalTwinNetwork.powertrain.name'),
       type: 'domain',
       protocol: 'CAN FD',
       color: '#ef4444',
       x: 18,
       y: 18,
-      description: 'Contrôle moteur, transmission, gestion thermique et systèmes de propulsion',
+      description: t('digitalTwinNetwork.powertrain.desc'),
       bandwidth: '5 Mbit/s',
       ecus: [
-        { name: 'ECM', desc: 'Engine Control Module', status: 'active', load: 78 },
-        { name: 'TCU', desc: 'Transmission Control Unit', status: 'active', load: 45 },
-        { name: 'FPCM', desc: 'Fuel Pump Control Module', status: 'active', load: 22 },
-        { name: 'ETC', desc: 'Electronic Throttle Control', status: 'active', load: 56 }
+        { name: t('digitalTwinNetwork.powertrain.ecus.ecm.name'), desc: t('digitalTwinNetwork.powertrain.ecus.ecm.desc'), status: 'active', load: 78 },
+        { name: t('digitalTwinNetwork.powertrain.ecus.tcu.name'), desc: t('digitalTwinNetwork.powertrain.ecus.tcu.desc'), status: 'active', load: 45 },
+        { name: t('digitalTwinNetwork.powertrain.ecus.fpcm.name'), desc: t('digitalTwinNetwork.powertrain.ecus.fpcm.desc'), status: 'active', load: 22 },
+        { name: t('digitalTwinNetwork.powertrain.ecus.etc.name'), desc: t('digitalTwinNetwork.powertrain.ecus.etc.desc'), status: 'active', load: 56 }
       ]
     },
     chassis: {
       id: 'chassis',
-      name: 'Chassis Domain',
+      name: t('digitalTwinNetwork.chassis.name'),
       type: 'domain',
       protocol: 'FlexRay',
       color: '#a855f7',
       x: 82,
       y: 18,
-      description: 'Systèmes critiques de sécurité active - freinage, direction, suspension',
+      description: t('digitalTwinNetwork.chassis.desc'),
       bandwidth: '10 Mbit/s',
       ecus: [
-        { name: 'ESP', desc: 'Electronic Stability Program', status: 'active', load: 89 },
-        { name: 'ABS', desc: 'Anti-lock Braking System', status: 'active', load: 67 },
-        { name: 'EPS', desc: 'Electric Power Steering', status: 'active', load: 54 },
-        { name: 'CDC', desc: 'Continuous Damping Control', status: 'active', load: 38 }
+        { name: t('digitalTwinNetwork.chassis.ecus.esp.name'), desc: t('digitalTwinNetwork.chassis.ecus.esp.desc'), status: 'active', load: 89 },
+        { name: t('digitalTwinNetwork.chassis.ecus.abs.name'), desc: t('digitalTwinNetwork.chassis.ecus.abs.desc'), status: 'active', load: 67 },
+        { name: t('digitalTwinNetwork.chassis.ecus.eps.name'), desc: t('digitalTwinNetwork.chassis.ecus.eps.desc'), status: 'active', load: 54 },
+        { name: t('digitalTwinNetwork.chassis.ecus.cdc.name'), desc: t('digitalTwinNetwork.chassis.ecus.cdc.desc'), status: 'active', load: 38 }
       ]
     },
     body: {
       id: 'body',
-      name: 'Body Domain',
+      name: t('digitalTwinNetwork.body.name'),
       type: 'domain',
       protocol: 'LIN',
       color: '#22c55e',
       x: 18,
       y: 72,
-      description: 'Confort, éclairage, serrures, rétroviseurs et accessoires intérieurs',
+      description: t('digitalTwinNetwork.body.desc'),
       bandwidth: '20 kbit/s',
       ecus: [
-        { name: 'BCM', desc: 'Body Control Module', status: 'active', load: 34 },
-        { name: 'PEPS', desc: 'Passive Entry/Start', status: 'active', load: 12 },
-        { name: 'RCM', desc: 'Rain Sensor Module', status: 'active', load: 8 },
-        { name: 'MLM', desc: 'Mirror Control Left', status: 'active', load: 5 }
+        { name: t('digitalTwinNetwork.body.ecus.bcm.name'), desc: t('digitalTwinNetwork.body.ecus.bcm.desc'), status: 'active', load: 34 },
+        { name: t('digitalTwinNetwork.body.ecus.peps.name'), desc: t('digitalTwinNetwork.body.ecus.peps.desc'), status: 'active', load: 12 },
+        { name: t('digitalTwinNetwork.body.ecus.rcm.name'), desc: t('digitalTwinNetwork.body.ecus.rcm.desc'), status: 'active', load: 8 },
+        { name: t('digitalTwinNetwork.body.ecus.mlm.name'), desc: t('digitalTwinNetwork.body.ecus.mlm.desc'), status: 'active', load: 5 }
       ]
     },
     infotainment: {
       id: 'infotainment',
-      name: 'Infotainment Domain',
+      name: t('digitalTwinNetwork.infotainment.name'),
       type: 'domain',
       protocol: 'Ethernet',
       color: '#3b82f6',
       x: 82,
       y: 72,
-      description: 'Système multimédia, navigation, connectivité smartphone et services cloud',
+      description: t('digitalTwinNetwork.infotainment.desc'),
       bandwidth: '1 Gbit/s',
       ecus: [
-        { name: 'HU', desc: 'Head Unit', status: 'active', load: 72 },
-        { name: 'TCU', desc: 'Telematics Control Unit', status: 'active', load: 45 },
-        { name: 'AMP', desc: 'Audio Amplifier', status: 'active', load: 28 },
-        { name: 'RSE', desc: 'Rear Seat Entertainment', status: 'standby', load: 0 }
+        { name: t('digitalTwinNetwork.infotainment.ecus.hu.name'), desc: t('digitalTwinNetwork.infotainment.ecus.hu.desc'), status: 'active', load: 72 },
+        { name: t('digitalTwinNetwork.infotainment.ecus.tcu.name'), desc: t('digitalTwinNetwork.infotainment.ecus.tcu.desc'), status: 'active', load: 45 },
+        { name: t('digitalTwinNetwork.infotainment.ecus.amp.name'), desc: t('digitalTwinNetwork.infotainment.ecus.amp.desc'), status: 'active', load: 28 },
+        { name: t('digitalTwinNetwork.infotainment.ecus.rse.name'), desc: t('digitalTwinNetwork.infotainment.ecus.rse.desc'), status: t('digitalTwinNetwork.messages.standby'), load: 0 }
       ]
     },
     adas: {
       id: 'adas',
-      name: 'ADAS Domain',
+      name: t('digitalTwinNetwork.adas.name'),
       type: 'domain',
       protocol: 'Ethernet',
       color: '#06b6d4',
       x: 50,
       y: 85,
-      description: 'Aide à la conduite, détection obstacles, parking automatique et conduite autonome',
+      description: t('digitalTwinNetwork.adas.desc'),
       bandwidth: '10 Gbit/s',
       ecus: [
-        { name: 'ADAS ECU', desc: 'Central Processing Unit', status: 'active', load: 95 },
-        { name: 'FWC', desc: 'Front Camera', status: 'active', load: 88 },
-        { name: 'SRR', desc: 'Short Range Radar', status: 'active', load: 76 },
-        { name: 'USS', desc: 'Ultrasonic Sensors', status: 'active', load: 42 }
+        { name: t('digitalTwinNetwork.adas.ecus.adasEcu.name'), desc: t('digitalTwinNetwork.adas.ecus.adasEcu.desc'), status: 'active', load: 95 },
+        { name: t('digitalTwinNetwork.adas.ecus.fwc.name'), desc: t('digitalTwinNetwork.adas.ecus.fwc.desc'), status: 'active', load: 88 },
+        { name: t('digitalTwinNetwork.adas.ecus.srr.name'), desc: t('digitalTwinNetwork.adas.ecus.srr.desc'), status: 'active', load: 76 },
+        { name: t('digitalTwinNetwork.adas.ecus.uss.name'), desc: t('digitalTwinNetwork.adas.ecus.uss.desc'), status: 'active', load: 42 }
       ]
     }
   };
@@ -135,17 +135,17 @@ const DigitalTwin = () => {
   // Real-time message generator
   const generateMessage = useCallback(() => {
     const messages = [
-      { from: 'powertrain', to: 'gateway', protocol: 'CAN FD', data: `RPM: ${Math.floor(vehicleData.rpm)}`, type: 'telemetry', priority: 'high', size: 64 },
-      { from: 'chassis', to: 'gateway', protocol: 'FlexRay', data: `Wheel Speed: ${vehicleData.speed} km/h`, type: 'safety', priority: 'critical', size: 254 },
-      { from: 'adas', to: 'gateway', protocol: 'Ethernet', data: `Object: ${Math.floor(Math.random() * 50 + 10)}m`, type: 'sensor', priority: 'critical', size: 1500 },
-      { from: 'body', to: 'gateway', protocol: 'LIN', data: 'Lights: ON', type: 'status', priority: 'low', size: 8 },
-      { from: 'infotainment', to: 'gateway', protocol: 'Ethernet', data: 'Stream: 4K HDR', type: 'media', priority: 'medium', size: 9000 },
-      { from: 'powertrain', to: 'chassis', protocol: 'CAN FD', data: `Torque Request: ${Math.floor(Math.random() * 200)}Nm`, type: 'control', priority: 'high', size: 64 },
-      { from: 'chassis', to: 'adas', protocol: 'FlexRay', data: 'ABS Active: NO', type: 'status', priority: 'critical', size: 254 },
-      { from: 'adas', to: 'chassis', protocol: 'Ethernet', data: 'Emergency Brake: Standby', type: 'safety', priority: 'critical', size: 64 },
+      { from: 'powertrain', to: 'gateway', protocol: 'CAN FD', data: `${t('digitalTwinNetwork.messages.rpm')}: ${Math.floor(vehicleData.rpm)}`, type: t('digitalTwinNetwork.messages.telemetry'), priority: 'high', size: 64 },
+      { from: 'chassis', to: 'gateway', protocol: 'FlexRay', data: `${t('digitalTwinNetwork.messages.wheelSpeed')}: ${vehicleData.speed} km/h`, type: t('digitalTwinNetwork.messages.safety'), priority: 'critical', size: 254 },
+      { from: 'adas', to: 'gateway', protocol: 'Ethernet', data: `${t('digitalTwinNetwork.messages.object')}: ${Math.floor(Math.random() * 50 + 10)}m`, type: t('digitalTwinNetwork.messages.sensor'), priority: 'critical', size: 1500 },
+      { from: 'body', to: 'gateway', protocol: 'LIN', data: 'Lights: ON', type: t('digitalTwinNetwork.messages.status'), priority: 'low', size: 8 },
+      { from: 'infotainment', to: 'gateway', protocol: 'Ethernet', data: 'Stream: 4K HDR', type: t('digitalTwinNetwork.messages.media'), priority: 'medium', size: 9000 },
+      { from: 'powertrain', to: 'chassis', protocol: 'CAN FD', data: `Torque: ${Math.floor(Math.random() * 200)}Nm`, type: t('digitalTwinNetwork.messages.control'), priority: 'high', size: 64 },
+      { from: 'chassis', to: 'adas', protocol: 'FlexRay', data: `${t('digitalTwinNetwork.messages.absActive')}: NO`, type: t('digitalTwinNetwork.messages.status'), priority: 'critical', size: 254 },
+      { from: 'adas', to: 'chassis', protocol: 'Ethernet', data: `${t('digitalTwinNetwork.messages.emergencyBrake')}: ${t('digitalTwinNetwork.messages.standby')}`, type: t('digitalTwinNetwork.messages.safety'), priority: 'critical', size: 64 },
     ];
     return messages[Math.floor(Math.random() * messages.length)];
-  }, [vehicleData]);
+  }, [vehicleData, t]);
 
   // Start real-time simulation
   const startSimulation = useCallback(() => {
@@ -613,7 +613,7 @@ const DigitalTwin = () => {
   const MessageLog = () => (
     <div className="message-log">
       <div className="log-header">
-        <span><BroadcastIcon size={18} color="#06b6d4" /> Bus de Messages en Temps Réel</span>
+        <span><BroadcastIcon size={18} color="#06b6d4" /> {t('digitalTwinNetwork.realtimeBus')}</span>
         <div className="message-stats">
           <span className="stat can">CAN: {networkStats.canMessages}</span>
           <span className="stat flexray">FR: {networkStats.flexrayFrames}</span>

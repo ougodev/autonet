@@ -422,7 +422,13 @@ export const translations = {
       resources: 'Ressources',
       developer: 'Développeur',
       copyright: 'AutoNet Architecture. Tous droits réservés.',
-      platform: 'Plateforme complète pour l\'exploration des réseaux de communication automobile.'
+      platform: 'Plateforme complète pour l\'exploration des réseaux de communication automobile.',
+      educational: {
+        title: 'But Éducatif',
+        purpose: 'Site à Vocation Pédagogique',
+        purposeDesc: 'Ce site a été créé pour aider les étudiants, ingénieurs et passionnés à comprendre les protocoles de communication automobile. L\'objectif est de rendre accessible ces technologies complexes à travers des simulations interactives et des explications détaillées.',
+        disclaimer: 'Contenu éducatif uniquement - non destiné à un usage commercial ou industriel.'
+      }
     },
     
     // Protocol Detail
@@ -696,6 +702,204 @@ export const translations = {
           desc: 'Aide à la conduite avancée',
           examples: ['Caméras', 'Radar', 'LiDAR', 'Fusion capteurs']
         }
+      }
+    },
+    
+    // Protocol Detail Data (full translations for protocol pages)
+    protocolsDetailData: {
+      CAN: {
+        description: 'Le protocole CAN est le standard de facto pour les communications embarquées automobiles. Développé par Bosch en 1983 et standardisé en 1986, il permet une communication robuste entre les ECUs via un bus différentiel à deux fils.',
+        topology: 'Bus linéaire',
+        medium: '2 fils différentiels (CAN_H, CAN_L)',
+        maxNodes: '32 (pratique) - 127 (théorique)',
+        accessMethod: 'CSMA/CD + Arbitrage non-destructif',
+        arbitration: {
+          method: 'Bit-à-bit non-destructif',
+          description: 'Lorsque plusieurs nœuds tentent de transmettre simultanément, l\'arbitrage se fait bit par bit. Le bit dominant (0) gagne sur le bit récessif (1). Le message avec l\'identifiant le plus bas (priorité haute) gagne l\'accès au bus.',
+          rules: [
+            'Un bit dominant (0) écrase un bit récessif (1)',
+            'L\'identifiant le plus petit a la priorité la plus haute',
+            'Le nœud perdant l\'arbitrage devient récepteur',
+            'Aucune perte de temps - transmission immédiate du gagnant'
+          ],
+          explanation: 'Le nœud C gagne car son ID (0x080) est le plus petit'
+        },
+        physicalLayer: {
+          description: 'Le bus utilise deux fils différentiels. L\'état récessif (1) correspond à une tension égale sur les deux fils. L\'état dominant (0) crée une différence de tension de 2V.',
+          termination: '120Ω aux deux extrémités du bus'
+        },
+        errorHandling: {
+          mechanisms: [
+            { name: 'Bit Error', description: 'Le transmetteur compare le bit envoyé avec le bit lu sur le bus' },
+            { name: 'Stuff Error', description: 'Après 5 bits identiques consécutifs, un bit de stuffing opposé doit être présent' },
+            { name: 'CRC Error', description: 'Vérification de l\'intégrité des données via CRC-15' },
+            { name: 'Form Error', description: 'Vérification des champs à format fixe (delimiters, EOF)' },
+            { name: 'ACK Error', description: 'Au moins un récepteur doit acquitter la trame' }
+          ],
+          TEC: 'Transmit Error Counter',
+          REC: 'Receive Error Counter'
+        },
+        applications: [
+          'Gestion moteur (ECM/PCM)',
+          'Transmission automatique (TCU)',
+          'Système de freinage ABS/ESP',
+          'Airbags et sécurité passive',
+          'Tableau de bord et instrumentation',
+          'Direction assistée',
+          'Climatisation'
+        ],
+        advantages: [
+          'Robuste et fiable',
+          'Coût faible',
+          'Détection et gestion d\'erreurs intégrée',
+          'Large support industriel',
+          'Arbitrage efficace'
+        ],
+        disadvantages: [
+          'Débit limité à 1 Mbit/s',
+          'Payload limité à 8 octets',
+          'Non déterministe',
+          'Latence variable selon la charge'
+        ]
+      },
+      CANFD: {
+        description: 'CAN FD est l\'évolution du CAN classique, développée pour répondre aux besoins croissants en bande passante des systèmes ADAS. Il permet des débits jusqu\'à 8 Mbit/s et des payloads jusqu\'à 64 octets.',
+        topology: 'Bus linéaire',
+        medium: '2 fils différentiels',
+        applications: [
+          'ADAS (Advanced Driver Assistance Systems)',
+          'Mises à jour firmware OTA',
+          'Capteurs haute résolution',
+          'Transmission de données de calibration',
+          'Diagnostic avancé'
+        ],
+        advantages: [
+          'Rétrocompatible avec CAN classique',
+          'Débit 8x supérieur',
+          'Payload 8x supérieur',
+          'Meilleure efficacité du bus',
+          'CRC amélioré'
+        ],
+        disadvantages: [
+          'Nécessite des contrôleurs compatibles',
+          'Coût légèrement supérieur',
+          'Toujours non déterministe'
+        ]
+      },
+      LIN: {
+        description: 'Le LIN est un protocole de communication série à faible coût, conçu comme complément au CAN pour les applications non critiques. Il utilise une architecture maître-esclave sur un seul fil.',
+        topology: 'Maître-Esclave (Bus)',
+        medium: '1 fil + masse',
+        maxNodes: '1 Maître + 16 Esclaves',
+        accessMethod: 'Polling par le maître',
+        applications: [
+          'Lève-vitres électriques',
+          'Rétroviseurs électriques',
+          'Commandes de sièges',
+          'Capteurs de pluie et lumière',
+          'Climatisation (commandes)',
+          'Toit ouvrant',
+          'Éclairage intérieur'
+        ],
+        advantages: [
+          'Coût très faible (un seul fil)',
+          'Simple à implémenter',
+          'Auto-synchronisation',
+          'Déterministe (scheduling fixe)',
+          'Idéal pour capteurs/actionneurs simples'
+        ],
+        disadvantages: [
+          'Débit très limité (20 kbit/s)',
+          'Non adapté aux applications critiques',
+          'Latence dépendante du scheduling',
+          'Pas de détection de collision'
+        ]
+      },
+      FlexRay: {
+        description: 'FlexRay est un protocole de communication haute performance conçu pour les applications automobiles critiques en termes de sécurité. Il offre un déterminisme garanti et une redondance optionnelle via double canal.',
+        topology: 'Bus, Étoile, ou Hybride',
+        medium: '2 fils par canal (2 ou 4 fils total)',
+        maxNodes: '64 par segment',
+        accessMethod: 'TDMA (statique) + FTDMA (dynamique)',
+        applications: [
+          'Direction assistée électrique (EPS)',
+          'Suspension active/adaptative',
+          'Freinage électronique (Brake-by-Wire)',
+          'Direction électronique (Steer-by-Wire)',
+          'Châssis actif',
+          'Systèmes X-by-Wire'
+        ],
+        advantages: [
+          'Déterminisme garanti (TDMA)',
+          'Haute bande passante (10-20 Mbit/s)',
+          'Redondance intégrée',
+          'Tolérance aux pannes',
+          'Synchronisation précise'
+        ],
+        disadvantages: [
+          'Coût élevé',
+          'Complexité de configuration',
+          'Configuration statique requise',
+          'Remplacé progressivement par Ethernet TSN'
+        ]
+      },
+      MOST: {
+        description: 'MOST est un protocole optimisé pour le transport de flux multimédia (audio, vidéo) dans les véhicules. Il utilise une topologie en anneau et garantit la bande passante pour le streaming.',
+        topology: 'Anneau (Ring)',
+        medium: 'Fibre optique plastique (POF) ou Coaxial',
+        maxNodes: '64',
+        accessMethod: 'TDMA synchrone + Asynchrone',
+        applications: [
+          'Système audio premium/surround',
+          'Affichage tête haute (HUD)',
+          'Écrans passagers arrière',
+          'Caméra de recul',
+          'Système de navigation',
+          'Connectivité Bluetooth/Téléphone',
+          'Infotainment'
+        ],
+        advantages: [
+          'Optimisé pour le multimédia',
+          'QoS garantie pour streaming',
+          'Fibre optique = immunité EMI',
+          'Plug and play',
+          'Haute bande passante'
+        ],
+        disadvantages: [
+          'Coût de la fibre optique',
+          'Connecteurs sensibles',
+          'Remplacé par Automotive Ethernet',
+          'Spécifique à l\'infotainment'
+        ]
+      },
+      Ethernet: {
+        description: 'L\'Ethernet automobile adapte le standard Ethernet pour les contraintes véhicule : une seule paire torsadée, EMC renforcée, et temps réel via TSN. C\'est l\'avenir des réseaux véhicule.',
+        topology: 'Étoile (Switch central)',
+        medium: '1 paire torsadée non blindée (UTP)',
+        accessMethod: 'CSMA/CD ou Full-Duplex',
+        applications: [
+          'Backbone véhicule haute vitesse',
+          'Caméras ADAS (surround view)',
+          'Radar et LiDAR',
+          'Infotainment connecté',
+          'Diagnostic rapide (DoIP)',
+          'Mises à jour OTA',
+          'Vehicle-to-Everything (V2X)'
+        ],
+        advantages: [
+          'Très haute bande passante (jusqu\'à 10 Gbit/s)',
+          'Écosystème IP mature',
+          'Support natif TCP/IP',
+          'Coût en baisse',
+          'Mises à jour OTA faciles',
+          'Unifie diagnostic, infotainment et ADAS'
+        ],
+        disadvantages: [
+          'Complexité de configuration',
+          'Nécessite TSN pour temps réel',
+          'Cybersécurité critique',
+          'Transition depuis protocoles legacy'
+        ]
       }
     }
   },
@@ -1123,7 +1327,13 @@ export const translations = {
       resources: 'Resources',
       developer: 'Developer',
       copyright: 'AutoNet Architecture. All rights reserved.',
-      platform: 'Complete platform for exploring automotive communication networks.'
+      platform: 'Complete platform for exploring automotive communication networks.',
+      educational: {
+        title: 'About',
+        purpose: 'Educational Purpose',
+        purposeDesc: 'This site is designed for educational purposes to help students, engineers and enthusiasts understand communication protocols used in the automotive industry.',
+        disclaimer: 'The information presented is simplified for learning purposes. For professional use, please consult official specifications.'
+      }
     },
     
     // Protocol Detail
@@ -1397,6 +1607,204 @@ export const translations = {
           desc: 'Advanced driver assistance',
           examples: ['Cameras', 'Radar', 'LiDAR', 'Sensor Fusion']
         }
+      }
+    },
+    
+    // Protocol Detail Data (full translations for protocol pages)
+    protocolsDetailData: {
+      CAN: {
+        description: 'The CAN protocol is the de facto standard for automotive embedded communications. Developed by Bosch in 1983 and standardized in 1986, it enables robust communication between ECUs via a differential two-wire bus.',
+        topology: 'Linear Bus',
+        medium: '2 differential wires (CAN_H, CAN_L)',
+        maxNodes: '32 (practical) - 127 (theoretical)',
+        accessMethod: 'CSMA/CD + Non-destructive arbitration',
+        arbitration: {
+          method: 'Bit-by-bit non-destructive',
+          description: 'When multiple nodes attempt to transmit simultaneously, arbitration is done bit by bit. The dominant bit (0) wins over the recessive bit (1). The message with the lowest identifier (highest priority) wins bus access.',
+          rules: [
+            'A dominant bit (0) overwrites a recessive bit (1)',
+            'The smallest identifier has the highest priority',
+            'The losing node becomes a receiver',
+            'No time loss - immediate transmission by the winner'
+          ],
+          explanation: 'Node C wins because its ID (0x080) is the smallest'
+        },
+        physicalLayer: {
+          description: 'The bus uses two differential wires. The recessive state (1) corresponds to equal voltage on both wires. The dominant state (0) creates a 2V voltage difference.',
+          termination: '120Ω at both ends of the bus'
+        },
+        errorHandling: {
+          mechanisms: [
+            { name: 'Bit Error', description: 'The transmitter compares the sent bit with the bit read on the bus' },
+            { name: 'Stuff Error', description: 'After 5 identical consecutive bits, an opposite stuffing bit must be present' },
+            { name: 'CRC Error', description: 'Data integrity verification via CRC-15' },
+            { name: 'Form Error', description: 'Verification of fixed-format fields (delimiters, EOF)' },
+            { name: 'ACK Error', description: 'At least one receiver must acknowledge the frame' }
+          ],
+          TEC: 'Transmit Error Counter',
+          REC: 'Receive Error Counter'
+        },
+        applications: [
+          'Engine Management (ECM/PCM)',
+          'Automatic Transmission (TCU)',
+          'ABS/ESP Braking System',
+          'Airbags and Passive Safety',
+          'Dashboard and Instrumentation',
+          'Power Steering',
+          'Climate Control'
+        ],
+        advantages: [
+          'Robust and reliable',
+          'Low cost',
+          'Built-in error detection and handling',
+          'Wide industry support',
+          'Efficient arbitration'
+        ],
+        disadvantages: [
+          'Limited to 1 Mbit/s',
+          'Payload limited to 8 bytes',
+          'Non-deterministic',
+          'Variable latency depending on load'
+        ]
+      },
+      CANFD: {
+        description: 'CAN FD is the evolution of classic CAN, developed to meet the growing bandwidth needs of ADAS systems. It allows speeds up to 8 Mbit/s and payloads up to 64 bytes.',
+        topology: 'Linear Bus',
+        medium: '2 differential wires',
+        applications: [
+          'ADAS (Advanced Driver Assistance Systems)',
+          'OTA Firmware Updates',
+          'High Resolution Sensors',
+          'Calibration Data Transmission',
+          'Advanced Diagnostics'
+        ],
+        advantages: [
+          'Backward compatible with classic CAN',
+          '8x higher speed',
+          '8x larger payload',
+          'Better bus efficiency',
+          'Improved CRC'
+        ],
+        disadvantages: [
+          'Requires compatible controllers',
+          'Slightly higher cost',
+          'Still non-deterministic'
+        ]
+      },
+      LIN: {
+        description: 'LIN is a low-cost serial communication protocol, designed as a complement to CAN for non-critical applications. It uses a master-slave architecture on a single wire.',
+        topology: 'Master-Slave (Bus)',
+        medium: '1 wire + ground',
+        maxNodes: '1 Master + 16 Slaves',
+        accessMethod: 'Polling by master',
+        applications: [
+          'Electric Windows',
+          'Electric Mirrors',
+          'Seat Controls',
+          'Rain and Light Sensors',
+          'Climate Control (commands)',
+          'Sunroof',
+          'Interior Lighting'
+        ],
+        advantages: [
+          'Very low cost (single wire)',
+          'Simple to implement',
+          'Self-synchronization',
+          'Deterministic (fixed scheduling)',
+          'Ideal for simple sensors/actuators'
+        ],
+        disadvantages: [
+          'Very limited speed (20 kbit/s)',
+          'Not suitable for critical applications',
+          'Latency depends on scheduling',
+          'No collision detection'
+        ]
+      },
+      FlexRay: {
+        description: 'FlexRay is a high-performance communication protocol designed for safety-critical automotive applications. It offers guaranteed determinism and optional redundancy via dual channel.',
+        topology: 'Bus, Star, or Hybrid',
+        medium: '2 wires per channel (2 or 4 wires total)',
+        maxNodes: '64 per segment',
+        accessMethod: 'TDMA (static) + FTDMA (dynamic)',
+        applications: [
+          'Electric Power Steering (EPS)',
+          'Active/Adaptive Suspension',
+          'Electronic Braking (Brake-by-Wire)',
+          'Electronic Steering (Steer-by-Wire)',
+          'Active Chassis',
+          'X-by-Wire Systems'
+        ],
+        advantages: [
+          'Guaranteed determinism (TDMA)',
+          'High bandwidth (10-20 Mbit/s)',
+          'Built-in redundancy',
+          'Fault tolerance',
+          'Precise synchronization'
+        ],
+        disadvantages: [
+          'High cost',
+          'Configuration complexity',
+          'Static configuration required',
+          'Being progressively replaced by Ethernet TSN'
+        ]
+      },
+      MOST: {
+        description: 'MOST is a protocol optimized for multimedia streaming (audio, video) in vehicles. It uses a ring topology and guarantees bandwidth for streaming.',
+        topology: 'Ring',
+        medium: 'Plastic Optical Fiber (POF) or Coaxial',
+        maxNodes: '64',
+        accessMethod: 'Synchronous TDMA + Asynchronous',
+        applications: [
+          'Premium/Surround Audio System',
+          'Head-Up Display (HUD)',
+          'Rear Passenger Screens',
+          'Backup Camera',
+          'Navigation System',
+          'Bluetooth/Phone Connectivity',
+          'Infotainment'
+        ],
+        advantages: [
+          'Optimized for multimedia',
+          'Guaranteed QoS for streaming',
+          'Fiber optic = EMI immunity',
+          'Plug and play',
+          'High bandwidth'
+        ],
+        disadvantages: [
+          'Fiber optic cost',
+          'Sensitive connectors',
+          'Being replaced by Automotive Ethernet',
+          'Specific to infotainment'
+        ]
+      },
+      Ethernet: {
+        description: 'Automotive Ethernet adapts the Ethernet standard for vehicle constraints: single twisted pair, enhanced EMC, and real-time via TSN. It is the future of vehicle networks.',
+        topology: 'Star (Central Switch)',
+        medium: '1 unshielded twisted pair (UTP)',
+        accessMethod: 'CSMA/CD or Full-Duplex',
+        applications: [
+          'High-Speed Vehicle Backbone',
+          'ADAS Cameras (Surround View)',
+          'Radar and LiDAR',
+          'Connected Infotainment',
+          'Fast Diagnostics (DoIP)',
+          'OTA Updates',
+          'Vehicle-to-Everything (V2X)'
+        ],
+        advantages: [
+          'Very high bandwidth (up to 10 Gbit/s)',
+          'Mature IP ecosystem',
+          'Native TCP/IP support',
+          'Decreasing cost',
+          'Easy OTA updates',
+          'Unifies diagnostics, infotainment and ADAS'
+        ],
+        disadvantages: [
+          'Configuration complexity',
+          'Requires TSN for real-time',
+          'Critical cybersecurity',
+          'Transition from legacy protocols'
+        ]
       }
     }
   }
