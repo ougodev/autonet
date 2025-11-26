@@ -420,14 +420,12 @@ export const translations = {
       description: 'Votre référence pour comprendre et maîtriser les protocoles de communication automobile modernes.',
       protocols: 'Protocoles',
       resources: 'Ressources',
-      developer: 'Développeur',
       copyright: 'AutoNet Architecture. Tous droits réservés.',
-      platform: 'Plateforme complète pour l\'exploration des réseaux de communication automobile.',
+      developedBy: 'Développé par OUGO',
       educational: {
         title: 'But Éducatif',
         purpose: 'Site à Vocation Pédagogique',
-        purposeDesc: 'Ce site a été créé pour aider les étudiants, ingénieurs et passionnés à comprendre les protocoles de communication automobile. L\'objectif est de rendre accessible ces technologies complexes à travers des simulations interactives et des explications détaillées.',
-        disclaimer: 'Contenu éducatif uniquement - non destiné à un usage commercial ou industriel.'
+        purposeDesc: 'Ce site a été créé pour aider les étudiants, ingénieurs et passionnés à comprendre les protocoles de communication automobile. L\'objectif est de rendre accessible ces technologies complexes à travers des simulations interactives et des explications détaillées.'
       }
     },
     
@@ -1325,14 +1323,12 @@ export const translations = {
       description: 'Your reference for understanding and mastering modern automotive communication protocols.',
       protocols: 'Protocols',
       resources: 'Resources',
-      developer: 'Developer',
       copyright: 'AutoNet Architecture. All rights reserved.',
-      platform: 'Complete platform for exploring automotive communication networks.',
+      developedBy: 'Developed by OUGO',
       educational: {
-        title: 'About',
-        purpose: 'Educational Purpose',
-        purposeDesc: 'This site is designed for educational purposes to help students, engineers and enthusiasts understand communication protocols used in the automotive industry.',
-        disclaimer: 'The information presented is simplified for learning purposes. For professional use, please consult official specifications.'
+        title: 'Educational Purpose',
+        purpose: 'Educational Site',
+        purposeDesc: 'This site was created to help students, engineers and enthusiasts understand automotive communication protocols. The goal is to make these complex technologies accessible through interactive simulations and detailed explanations.'
       }
     },
     

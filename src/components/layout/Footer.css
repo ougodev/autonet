@@ -158,8 +158,9 @@
 
 .footer__credits {
   margin-top: 0.5rem;
-  color: #495670;
-  font-size: 0.8rem;
+  color: #64ffda;
+  font-size: 0.9rem;
+  font-weight: 600;
 }
 
 /* Educational Section */
@@ -194,15 +195,6 @@
   font-size: 0.9rem;
   line-height: 1.6;
   margin: 0;
-}
-
-.educational-disclaimer {
-  color: #64ffda;
-  font-size: 0.8rem;
-  font-style: italic;
-  margin: 0;
-  padding-top: 0.5rem;
-  border-top: 1px solid rgba(100, 255, 218, 0.1);
 }
 
 /* Responsive */
