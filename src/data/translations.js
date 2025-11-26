@@ -421,7 +421,7 @@ export const translations = {
       protocols: 'Protocoles',
       resources: 'Ressources',
       copyright: 'AutoNet Architecture. Tous droits réservés.',
-      developedBy: 'Développé par OUGO',
+      developedBy: 'Développé par Oussama Gobji',
       educational: {
         title: 'But Éducatif',
         purpose: 'Site à Vocation Pédagogique',
@@ -1324,7 +1324,7 @@ export const translations = {
       protocols: 'Protocols',
       resources: 'Resources',
       copyright: 'AutoNet Architecture. All rights reserved.',
-      developedBy: 'Developed by OUGO',
+      developedBy: 'Developed by Oussama Gobji',
       educational: {
         title: 'Educational Purpose',
         purpose: 'Educational Site',
