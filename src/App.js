@@ -8,6 +8,7 @@ import { LanguageProvider } from './context/LanguageContext';
 // Layout Components
 import Header from './components/layout/Header';
 import Footer from './components/layout/Footer';
+import ScrollToTop from './components/common/ScrollToTop';
 
 // Pages
 import Home from './pages/Home';
@@ -22,6 +23,7 @@ function App() {
   return (
     <LanguageProvider>
       <Router>
+        <ScrollToTop />
         <div className="app">
           <Header />
           <main className="main-content">
