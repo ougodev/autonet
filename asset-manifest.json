@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/autonet/static/css/main.76c1e054.css",
+    "main.js": "/autonet/static/js/main.3c04e547.js",
+    "static/js/453.5028ca12.chunk.js": "/autonet/static/js/453.5028ca12.chunk.js",
+    "static/media/ougo.png": "/autonet/static/media/ougo.c311293d60044e8c3bf7.png",
+    "static/media/logo.png": "/autonet/static/media/logo.a92efe9151e2f5cdbc41.png",
+    "index.html": "/autonet/index.html",
+    "main.76c1e054.css.map": "/autonet/static/css/main.76c1e054.css.map",
+    "main.3c04e547.js.map": "/autonet/static/js/main.3c04e547.js.map",
+    "453.5028ca12.chunk.js.map": "/autonet/static/js/453.5028ca12.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.76c1e054.css",
+    "static/js/main.3c04e547.js"
+  ]
+}
